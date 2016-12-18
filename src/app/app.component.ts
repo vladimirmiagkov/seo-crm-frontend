@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 
+import {AuthenticationService} from './user/authentication.service';
+
 @Component({
   //moduleId: module.id,
   selector: 'app-root',
@@ -7,5 +9,8 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+  //title = 'app works!';
+
+  constructor(public authenticationService: AuthenticationService) {
+  }
 }

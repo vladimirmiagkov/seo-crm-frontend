@@ -7,6 +7,9 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './user/login/login.component';
 import {AuthenticationService} from './user/authentication.service';
+import {AUTH_PROVIDERS} from 'angular2-jwt';
+import {AuthGuard} from './user/auth.guard';
+import {HomeComponent} from './home/home.component';
 
 @NgModule({
   imports: [ //Specifies a list of modules whose exported directives/pipes should be available to templates in this module. This can also contain ModuleWithProviders.
@@ -18,11 +21,13 @@ import {AuthenticationService} from './user/authentication.service';
   declarations: [ //Specifies a list of directives/pipes that belong to this module.
     AppComponent,
     LoginComponent,
+    HomeComponent,
   ],
   providers: [ //Defines the set of injectable objects that are available in the injector of this module.
-    //BackendService,  
     //Logger,
-    AuthenticationService
+    AuthenticationService,
+    AUTH_PROVIDERS,
+    AuthGuard,
   ],
   bootstrap: [ //Defines the components that should be bootstrapped when this module is bootstrapped. The components listed here will automatically be added to entryComponents.
     AppComponent,
