@@ -7,7 +7,7 @@ import {tokenNotExpired} from 'angular2-jwt';
 //import {JwtHelper} from 'angular2-jwt';
 
 @Injectable()
-export class AuthenticationService {
+export class AuthService {
   public token: string;
 
   constructor(private http: Http) {

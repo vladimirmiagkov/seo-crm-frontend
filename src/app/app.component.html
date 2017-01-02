@@ -5,11 +5,10 @@
             <li class="nav-item active"><a class="nav-link" [routerLink]="['/login']">Login</a></li>
             <!--<li class="nav-item"><a class="nav-link" href="#about">About</a></li>-->
 
-            <li class="nav-item" *ngIf="!authenticationService.isAuthenticated()"><a class="nav-link" href="">logged
-                out</a>
-            </li>
-            <li class="nav-item" *ngIf="authenticationService.isAuthenticated()"><a class="nav-link" href="">logged
-                in</a></li>
+            <li class="nav-item" *ngIf="!authService.isAuthenticated()"><a class="nav-link" href="">
+                logged out</a></li>
+            <li class="nav-item" *ngIf="authService.isAuthenticated()"><a class="nav-link" href="">
+                logged in</a></li>
         </ul>
     </div>
 </nav>
