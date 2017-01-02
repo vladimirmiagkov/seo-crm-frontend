@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import 'rxjs/add/operator/map'
 
 import {tokenNotExpired} from 'angular2-jwt';
+//import {JwtHelper} from 'angular2-jwt';
 
 @Injectable()
 export class AuthenticationService {
@@ -62,7 +63,18 @@ export class AuthenticationService {
     localStorage.removeItem('id_token');
   }
 
-  loggedIn() {
+  isAuthenticated() {
+    // if (localStorage.getItem('id_token')) {
+    //   let jwtHelper = new JwtHelper();
+    //   let token = localStorage.getItem('id_token');
+    //
+    //   //console.log(jwtHelper.decodeToken(token));
+    //   //console.log(jwtHelper.getTokenExpirationDate(token));
+    //   //console.log(jwtHelper.isTokenExpired(token));
+    //   if (!jwtHelper.isTokenExpired(token)) {
+    //     return true;
+    //   }
+    // }
     return tokenNotExpired();
   }
 }
