@@ -1,24 +1,22 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers, RequestOptions, Response} from '@angular/http';
-import {Observable} from 'rxjs';
-import 'rxjs/add/operator/map'
 
-import {AuthService} from './auth.service';
+import {ApiService} from '../shared/api.service';
 import {User} from './user.model';
 
 @Injectable()
 export class UserService {
-  constructor(private http: Http,
-              private authService: AuthService) {
+  constructor(private apiService: ApiService) {
   }
 
-  getUsers(): Observable<User[]> {
-    // add authorization header with jwt token
-    let headers = new Headers({'Authorization': 'Bearer ' + this.authService.token});
-    let options = new RequestOptions({headers: headers});
-
-    // get users from api
-    return this.http.get('/api/users', options)
-      .map((response: Response) => response.json());
+  getUsers()/*: Observable<User[]>*/ {
+    this.apiService.get('/api/users').subscribe(
+      result => {
+        console.dir(result);
+        //this.error = 'Username or password is incorrect';
+      },
+      err => {
+        console.log(err);
+        //this.error = String(err);
+      });
   }
 }
