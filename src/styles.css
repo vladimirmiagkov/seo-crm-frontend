@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* in dialog window */
+p-dialog .ui-grid-row label {
+    padding: 6px 0 8px 0;
+    font-weight: bold;
+}

@@ -19,7 +19,7 @@ export class ApiService {
     let options = new RequestOptions({headers: headers});
 
     // get api
-    return this.http.get(environment.backendRoot + path, options)
+    return this.http.get(environment.backendRoot + '/api/v1' + path, options)
       .map((response: Response) => response.json());
   }
 }

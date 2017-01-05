@@ -1,6 +1,13 @@
 export class User {
+  id: string;
   username: string;
   password: string;
-  firstName: string;
-  lastName: string;
+  email: string;
+  enabled: boolean;
+  lastLogin: null | string;
+  createdBy: null | string;
+  modifiedBy: null | string;
+  createdAt: null | string;
+  modifiedAt: null | string;
+  roles: null | string[];
 }

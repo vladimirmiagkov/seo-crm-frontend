@@ -11,9 +11,7 @@ export class AuthService {
   public token: string;
 
   constructor(private http: Http) {
-    // set token if saved in local storage
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.token = currentUser && currentUser.token;
+    this.token = localStorage.getItem('id_token');
   }
 
   login(username: string, password: string): Observable<boolean> {

@@ -1,6 +1,6 @@
 {
   "name": "rssp6-frontend",
-  "version": "0.0.0",
+  "version": "6.0.0",
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
@@ -48,7 +48,7 @@
     "protractor": "4.0.9",
     "ts-node": "1.2.1",
     "tslint": "3.13.0",
-    "typescript": "~2.0.3",
+    "typescript": "~2.0.10",
     "webdriver-manager": "10.2.5"
   }
 }
