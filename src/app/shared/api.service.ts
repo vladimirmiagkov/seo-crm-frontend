@@ -8,18 +8,24 @@ import {environment} from '../../environments/environment';
 
 @Injectable()
 export class ApiService {
-  //public token: string;
+  public apiPath: string = environment.backendRoot + '/api/v1';
 
   constructor(private http: Http, private authService: AuthService) {
   }
 
-  get(path: string): Observable<any> {
-    // add authorization header with jwt token
-    let headers = new Headers({'Authorization': 'Bearer ' + this.authService.token});
-    let options = new RequestOptions({headers: headers});
-
-    // get api
-    return this.http.get(environment.backendRoot + '/api/v1' + path, options)
+  public get(path: string): Observable<any> {
+    return this.http.get(this.apiPath + path, this.getRequestOptions())
       .map((response: Response) => response.json());
+  }
+
+  public post(path: string, data: any): Observable<any> {
+    return this.http.post(this.apiPath + path, JSON.stringify(data), this.getRequestOptions())
+      .map((response: Response) => response.json());
+  }
+
+  private getRequestOptions(): RequestOptions {
+    let headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + this.authService.token); // add authorization header with jwt token
+    return new RequestOptions({headers: headers});
   }
 }

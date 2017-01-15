@@ -17,9 +17,6 @@ export class AuthService {
   login(username: string, password: string): Observable<boolean> {
     let headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    //headers.append('Cookie', 'XDEBUG_SESSION=PHPSTORM'); //error: Refused to set unsafe header "Cookie"
-    //headers.append('php_auth_user', username);
-    //headers.append('php_auth_pw', password);
 
     return this.http.post(
       'http://rssp6.ru/app_dev.php/api/login_check',

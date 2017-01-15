@@ -15,6 +15,8 @@ export class UserListComponent implements OnInit {
   isDialogVisible: boolean;
   isNewUser: boolean;
   currentUser: User = new User();
+  userErrors: string = '';
+  isLoading: boolean = false;
 
   constructor(private userService: UserService) {
   }
@@ -23,13 +25,11 @@ export class UserListComponent implements OnInit {
     this.userService.getUsers()
       .subscribe(
         result => {
-          //console.dir(result);
+          console.dir(result);
           this.users = result;
-          console.dir(this.users);
         },
         err => {
           console.log(err);
-          //this.error = String(err);
         });
   }
 
@@ -41,17 +41,30 @@ export class UserListComponent implements OnInit {
   }
 
   saveUser() {
+    this.userErrors = '';
+    this.isLoading = true;
     if (this.isNewUser) {
-      this.currentUser.id = String(this.users.length + 1); // set user id for new user
-      this.users.push(this.currentUser);
+      this.userService.createUser(this.currentUser)
+        .subscribe(
+          result => {
+            //console.dir(result);
+            this.users.push(result);
+            this.isLoading = false;
+            this.currentUser = null;
+            this.isDialogVisible = false;
+          },
+          err => {
+            //console.dir(err);
+            this.userErrors = err;
+            this.isLoading = false;
+          });
     } else {
+      //todo
       let userIndex = this.findUserIndexById(this.currentUser.id);
       if (null !== userIndex) {
         this.users[userIndex] = this.currentUser;
       }
     }
-    this.currentUser = null;
-    this.isDialogVisible = false;
   }
 
   deleteUser(id) {

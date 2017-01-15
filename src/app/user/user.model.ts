@@ -3,7 +3,7 @@ export class User {
   username: string;
   password: string;
   email: string;
-  enabled: boolean;
+  enabled: boolean = true;
   lastLogin: null | string;
   createdBy: null | string;
   modifiedBy: null | string;

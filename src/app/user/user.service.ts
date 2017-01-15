@@ -12,4 +12,8 @@ export class UserService {
   getUsers(): Observable<User[]> {
     return this.apiService.get('/user');
   }
+
+  createUser(user: User): Observable<User> {
+    return this.apiService.post('/user/new', user);
+  }
 }
