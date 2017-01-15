@@ -23,6 +23,12 @@ export class ApiService {
       .map((response: Response) => response.json());
   }
 
+  public delete(path: string): Observable<any> {
+    return this.http.delete(this.apiPath + path, this.getRequestOptions())
+      .map((response: Response) => response.json());
+  }
+
+
   private getRequestOptions(): RequestOptions {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + this.authService.token); // add authorization header with jwt token

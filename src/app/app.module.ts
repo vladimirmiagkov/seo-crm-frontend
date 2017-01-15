@@ -30,6 +30,7 @@ import {MultiSelectModule} from 'primeng/primeng';
 import {RadioButtonModule} from 'primeng/primeng';
 import {SliderModule} from 'primeng/primeng';
 import {SelectButtonModule} from 'primeng/primeng';
+import {GrowlModule} from 'primeng/primeng';
 
 @NgModule({
   imports: [ //Specifies a list of modules whose exported directives/pipes should be available to templates in this module. This can also contain ModuleWithProviders.
@@ -55,6 +56,7 @@ import {SelectButtonModule} from 'primeng/primeng';
     ConfirmDialogModule, //PrimeNg
     DataTableModule, //PrimeNg
     CalendarModule, //PrimeNg
+    GrowlModule, //PrimeNg
 
   ],
   declarations: [ //Specifies a list of directives/pipes that belong to this module.

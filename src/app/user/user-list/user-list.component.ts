@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+
+import {Message} from 'primeng/primeng';
+
 import {UserService} from '../user.service';
 import {User} from '../user.model';
 declare let jQuery: any;
@@ -18,6 +21,8 @@ export class UserListComponent implements OnInit {
   userErrors: string = '';
   isLoading: boolean = false;
 
+  popupMessages: Message[] = [];
+
   constructor(private userService: UserService) {
   }
 
@@ -33,7 +38,7 @@ export class UserListComponent implements OnInit {
         });
   }
 
-  editUser(id) {
+  editUser(id: string) {
     this.isNewUser = false;
     let userIndex = this.findUserIndexById(id);
     this.currentUser = jQuery.extend(true, {}, this.users[userIndex]); // clone user
@@ -52,6 +57,7 @@ export class UserListComponent implements OnInit {
             this.isLoading = false;
             this.currentUser = null;
             this.isDialogVisible = false;
+            this.popupMessages.push({severity: 'success', summary: 'Create new user:', detail: 'New user have been<br>added successfully.'});
           },
           err => {
             //console.dir(err);
@@ -67,18 +73,27 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  deleteUser(id) {
+  deleteUser(id: string) {
     let userIndex = this.findUserIndexById(id);
-    if (null !== userIndex) {
+    if (null !== userIndex && confirm('Delete user ' + this.users[userIndex].username + '?')) {
+      this.userService.deleteUser(id)
+        .subscribe(
+          result => {
+            //console.dir(result);
+            this.popupMessages.push({severity: 'success', summary: 'Delete user:', detail: 'The user was<br>successfully removed.'});
+          },
+          err => {
+            console.dir(err);
+            this.popupMessages.push({severity: 'error', summary: 'Delete user:', detail: String(err)});
+          });
       this.users.splice(userIndex, 1);
-      this.currentUser = null;
     }
   }
 
-  findUserIndexById(id): number {
+  findUserIndexById(id: string): number {
     for (let i = 0; i < this.users.length; i++) {
       if (this.users[i].id == id) {
-        console.log('findUserIndexById id=' + id + ' UserIndex=' + i);
+        //console.log('findUserIndexById id=' + id + ' UserIndex=' + i);
         return i;
       }
     }
