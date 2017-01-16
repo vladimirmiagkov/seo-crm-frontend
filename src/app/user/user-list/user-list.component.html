@@ -14,7 +14,7 @@
         emptyMessage="loading..."
     >
 
-      <header>Total users: {{users?.length || '0'}}</header>
+      <header>Total users: {{users?.length || 'loading...'}}</header>
 
       <p-column [style]="{'width':'40px'}" expander="true" styleClass="col-icon"></p-column>
       <p-column [style]="{'width':'55px'}" field="id" header="id" [sortable]="true"></p-column>
@@ -26,7 +26,7 @@
           <span>{{ user[col.field] | date:"y-MM-dd H:m:s" }}</span>
         </template>
       </p-column>
-      <p-column field="roles" header="roles"></p-column>
+      <p-column [style]="{'width':'160px'}" field="roles" header="roles"></p-column>
 
       <!-- edit buttons -->
       <p-column [style]="{'width':'95px'}" styleClass="col-button">
@@ -51,12 +51,12 @@
                   <div class="ui-grid-col-10">{{user.createdBy?.username}}</div>
                 </div>
                 <div class="ui-grid-row">
-                  <div class="ui-grid-col-2 label">modifiedBy:</div>
-                  <div class="ui-grid-col-10">{{user.modifiedBy?.username}}</div>
-                </div>
-                <div class="ui-grid-row">
                   <div class="ui-grid-col-2 label">createdAt:</div>
                   <div class="ui-grid-col-10">{{user.createdAt | date:"y-MM-dd H:m:s"}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2 label">modifiedBy:</div>
+                  <div class="ui-grid-col-10">{{user.modifiedBy?.username}}</div>
                 </div>
                 <div class="ui-grid-row">
                   <div class="ui-grid-col-2 label">modifiedAt:</div>
@@ -96,8 +96,19 @@
           </div>
           <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label>Enabled*</label></div>
-            <div class="ui-grid-col-8" style="padding-top: 6px;">
+            <div class="ui-grid-col-8">
               <p-inputSwitch [(ngModel)]="currentUser.enabled" name="enabled" onLabel="Yes" offLabel="No"></p-inputSwitch>
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label>Roles*</label></div>
+            <div class="ui-grid-col-8">
+              <div class="ui-g" style="width:200px;">
+                <p-radioButton name="roles" value="ROLE_CLIENT" label="ROLE_CLIENT" [(ngModel)]="currentUser.roles"></p-radioButton>
+                <p-radioButton name="roles" value="ROLE_SEO" label="ROLE_SEO" [(ngModel)]="currentUser.roles"></p-radioButton>
+                <p-radioButton name="roles" value="ROLE_ADMIN" label="ROLE_ADMIN" [(ngModel)]="currentUser.roles"></p-radioButton>
+                <p-radioButton name="roles" value="ROLE_SUPER_ADMIN" label="ROLE_SUPER_ADMIN" [(ngModel)]="currentUser.roles"></p-radioButton>
+              </div>
             </div>
           </div>
           <div class="ui-grid-row">

@@ -9,5 +9,5 @@ export class User {
   modifiedBy: null | string;
   createdAt: null | string;
   modifiedAt: null | string;
-  roles: null | string[];
+  roles: null | string;
 }

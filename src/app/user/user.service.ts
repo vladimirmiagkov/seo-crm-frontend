@@ -17,6 +17,10 @@ export class UserService {
     return this.apiService.post('/user', user);
   }
 
+  updateUser(user: User): Observable<User> {
+    return this.apiService.put('/user/' + user.id, user);
+  }
+
   deleteUser(id: string): Observable<User> {
     return this.apiService.delete('/user/' + id);
   }

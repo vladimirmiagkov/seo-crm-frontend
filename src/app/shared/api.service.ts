@@ -23,6 +23,11 @@ export class ApiService {
       .map((response: Response) => response.json());
   }
 
+  public put(path: string, data: any): Observable<any> {
+    return this.http.put(this.apiPath + path, JSON.stringify(data), this.getRequestOptions())
+      .map((response: Response) => response.json());
+  }
+
   public delete(path: string): Observable<any> {
     return this.http.delete(this.apiPath + path, this.getRequestOptions())
       .map((response: Response) => response.json());

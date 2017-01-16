@@ -39,6 +39,7 @@ export class UserListComponent implements OnInit {
   }
 
   editUser(id: string) {
+    this.userErrors = '';
     this.isNewUser = false;
     let userIndex = this.findUserIndexById(id);
     this.currentUser = jQuery.extend(true, {}, this.users[userIndex]); // clone user
@@ -65,10 +66,24 @@ export class UserListComponent implements OnInit {
             this.isLoading = false;
           });
     } else {
-      //todo
       let userIndex = this.findUserIndexById(this.currentUser.id);
       if (null !== userIndex) {
-        this.users[userIndex] = this.currentUser;
+        //this.users[userIndex] = this.currentUser;
+        this.userService.updateUser(this.currentUser)
+          .subscribe(
+            result => {
+              //console.dir(result);
+              this.users[userIndex] = result;
+              this.isLoading = false;
+              this.currentUser = null;
+              this.isDialogVisible = false;
+              this.popupMessages.push({severity: 'success', summary: 'Update user:', detail: 'User have been<br>updated successfully.'});
+            },
+            err => {
+              //console.dir(err);
+              this.userErrors = err;
+              this.isLoading = false;
+            });
       }
     }
   }
@@ -83,7 +98,7 @@ export class UserListComponent implements OnInit {
             this.popupMessages.push({severity: 'success', summary: 'Delete user:', detail: 'The user was<br>successfully removed.'});
           },
           err => {
-            console.dir(err);
+            //console.dir(err);
             this.popupMessages.push({severity: 'error', summary: 'Delete user:', detail: String(err)});
           });
       this.users.splice(userIndex, 1);
@@ -101,7 +116,9 @@ export class UserListComponent implements OnInit {
   }
 
   showDialogToAdd() {
+    this.userErrors = '';
     this.currentUser = new User();
+    this.currentUser.roles = 'ROLE_CLIENT';
     this.isNewUser = true;
     this.isDialogVisible = true;
   }
