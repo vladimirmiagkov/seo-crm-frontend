@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 
 import {Message} from 'primeng/primeng';
 
+import {UtilService} from 'app/shared/util.service';
 import {UserService} from '../user.service';
 import {User} from '../user.model';
-declare let jQuery: any;
 
 @Component({
   selector: 'app-user-list',
@@ -13,15 +13,15 @@ declare let jQuery: any;
   providers: [UserService]
 })
 export class UserListComponent implements OnInit {
-  users: User[];
+  public users: User[];
 
-  isDialogVisible: boolean;
-  isNewUser: boolean;
-  currentUser: User = new User();
-  userErrors: string = '';
-  isLoading: boolean = false;
+  public isDialogVisible: boolean;
+  public isNewUser: boolean;
+  public currentUser: User = new User();
+  public userErrors: string = '';
+  public isLoading: boolean = false;
 
-  popupMessages: Message[] = [];
+  public popupMessages: Message[] = [];
 
   constructor(private userService: UserService) {
   }
@@ -41,8 +41,8 @@ export class UserListComponent implements OnInit {
   editUser(id: string) {
     this.userErrors = '';
     this.isNewUser = false;
-    let userIndex = this.findUserIndexById(id);
-    this.currentUser = jQuery.extend(true, {}, this.users[userIndex]); // clone user
+    let userIndex = UtilService.findIndexById(this.users, id);
+    this.currentUser = UtilService.cloneObject(this.users[userIndex]);
     this.isDialogVisible = true;
   }
 
@@ -66,9 +66,8 @@ export class UserListComponent implements OnInit {
             this.isLoading = false;
           });
     } else {
-      let userIndex = this.findUserIndexById(this.currentUser.id);
+      let userIndex = UtilService.findIndexById(this.users, this.currentUser.id);
       if (null !== userIndex) {
-        //this.users[userIndex] = this.currentUser;
         this.userService.updateUser(this.currentUser)
           .subscribe(
             result => {
@@ -89,7 +88,7 @@ export class UserListComponent implements OnInit {
   }
 
   deleteUser(id: string) {
-    let userIndex = this.findUserIndexById(id);
+    let userIndex = UtilService.findIndexById(this.users, id);
     if (null !== userIndex && confirm('Delete user ' + this.users[userIndex].username + '?')) {
       this.userService.deleteUser(id)
         .subscribe(
@@ -103,16 +102,6 @@ export class UserListComponent implements OnInit {
           });
       this.users.splice(userIndex, 1);
     }
-  }
-
-  findUserIndexById(id: string): number {
-    for (let i = 0; i < this.users.length; i++) {
-      if (this.users[i].id == id) {
-        //console.log('findUserIndexById id=' + id + ' UserIndex=' + i);
-        return i;
-      }
-    }
-    return null;
   }
 
   showDialogToAdd() {

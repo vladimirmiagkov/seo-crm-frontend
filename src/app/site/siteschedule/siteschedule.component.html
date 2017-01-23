@@ -1,0 +1,96 @@
+<div class="container">
+  <div class="row">
+    <h2>Site download and analyze schedule</h2>
+
+    <p-growl [value]="popupMessages" life="5000"></p-growl>
+
+    <p-dataTable
+        [value]="objs"
+        sortMode="multiple"
+        resizableColumns="true" columnResizeMode="expand"
+        [rows]="100" [paginator]="true" [pageLinks]="5"
+        expandableRows="true"
+        emptyMessage="loading..."
+    >
+      <header>Site shedules</header>
+
+      <p-column [style]="{'width':'40px'}" expander="true" styleClass="col-icon"></p-column>
+      <p-column [style]="{'width':'55px'}" field="id" header="id" [sortable]="true"></p-column>
+      <p-column [style]="{'width':'60px'}" header="on" [sortable]="true">
+        <template let-siteschedule="rowData" pTemplate="body">
+          {{siteschedule.active ? 'on' : 'off'}}
+        </template>
+      </p-column>
+      <p-column field="site.name" header="site name" [sortable]="true"></p-column>
+      <p-column field="intervalBetweenSiteDownload" header="Interval btw site dwn, hrs" [sortable]="true"></p-column>
+      <p-column field="intervalBetweenPageDownload" header="Interval btw page dwn, sec" [sortable]="true"></p-column>
+
+      <!-- edit buttons -->
+      <p-column [style]="{'width':'55px'}" styleClass="col-button">
+        <template pTemplate="header"></template>
+        <template let-siteschedule="rowData" pTemplate="body">
+          <button (click)="editSiteSchedule(siteschedule.id)" icon="fa-pencil-square-o" type="button" pButton></button>
+        </template>
+      </p-column>
+
+      <!-- expanded row -->
+      <template let-siteschedule pTemplate="rowexpansion">
+        <div class="ui-grid ui-grid-responsive ui-fluid">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-1" style="text-align:center">
+              <!--<i class="fa fa-search" style="cursor:pointer;float:left;margin-top:40px"></i>-->
+            </div>
+            <div class="ui-grid-col-11">
+              <div class="ui-grid ui-grid-responsive ui-grid-pad">
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 label">Max time limit for site download, hrs:</div>
+                  <div class="ui-grid-col-7">{{siteschedule.maxTimeLimitForSiteDownload}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 label">Max depth level limit for site download:</div>
+                  <div class="ui-grid-col-7">{{siteschedule.maxDepthLevelLimitForSiteDownload}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 label">Use User-Agent from robots.txt?</div>
+                  <div class="ui-grid-col-7">{{siteschedule.useUserAgentFromRobotsTxt}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 label">Follow 'nofollow' links?</div>
+                  <div class="ui-grid-col-7">{{siteschedule.followNoFollowLinks}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 label">Check external links for 404?</div>
+                  <div class="ui-grid-col-7">{{siteschedule.checkExternalLinksFor404}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 label"></div>
+                  <div class="ui-grid-col-7"></div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 label">createdBy:</div>
+                  <div class="ui-grid-col-7">{{siteschedule.createdBy?.username}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 label">createdAt:</div>
+                  <div class="ui-grid-col-7">{{siteschedule.createdAt | date:"y-MM-dd H:mm:ss"}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 label">modifiedBy:</div>
+                  <div class="ui-grid-col-7">{{siteschedule.modifiedBy?.username}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 label">modifiedAt:</div>
+                  <div class="ui-grid-col-7">{{siteschedule.modifiedAt | date:"y-MM-dd H:mm:ss"}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </p-dataTable>
+
+    <p-dialog [(visible)]="isDialogVisible" header="Edit site schedule for {{currentObj.site?.name}}" [responsive]="true" showEffect="fade" [modal]="true">
+      <app-siteschedule-detail [currentObj]="currentObj" (saved)="onSaved($event)"></app-siteschedule-detail>
+    </p-dialog>
+  </div>
+</div>

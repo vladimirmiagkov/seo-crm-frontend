@@ -10,9 +10,9 @@ import {User} from '../user.model';
   styleUrls: ['login.component.css']
 })
 export class LoginComponent implements OnInit {
-  user: User = new User;
-  loading = false;
-  error = '';
+  public user: User = new User;
+  public loading = false;
+  public error = '';
 
   constructor(private router: Router, private authService: AuthService) {
   }

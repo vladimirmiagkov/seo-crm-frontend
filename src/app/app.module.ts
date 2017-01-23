@@ -3,18 +3,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {ApiService} from './shared/api.service';
-import {LoginComponent} from './user/login/login.component';
-import {AUTH_PROVIDERS} from 'angular2-jwt';
-import {AuthService} from './user/auth.service';
-import {AuthGuard} from './user/auth.guard';
-import {HomeComponent} from './home/home.component';
-import {UserListComponent} from './user/user-list/user-list.component';
-
 //PrimeNg
-import {DataTableModule, SharedModule} from 'primeng/primeng';
 import {ButtonModule} from 'primeng/primeng';
 import {DialogModule} from 'primeng/primeng';
 import {ConfirmDialogModule, ConfirmationService} from 'primeng/primeng';
@@ -31,6 +20,21 @@ import {RadioButtonModule} from 'primeng/primeng';
 import {SliderModule} from 'primeng/primeng';
 import {SelectButtonModule} from 'primeng/primeng';
 import {GrowlModule} from 'primeng/primeng';
+import {DataTableModule, SharedModule} from 'primeng/primeng';
+import {DataListModule} from 'primeng/primeng';
+
+// App
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {ApiService} from './shared/api.service';
+import {LoginComponent} from './user/login/login.component';
+import {AUTH_PROVIDERS} from 'angular2-jwt';
+import {AuthService} from './user/auth.service';
+import {AuthGuard} from './user/auth.guard';
+import {HomeComponent} from './home/home.component';
+import {UserListComponent} from './user/user-list/user-list.component';
+import {SitescheduleComponent} from './site/siteschedule/siteschedule.component';
+import {SitescheduleDetailComponent} from './site/siteschedule/siteschedule-detail/siteschedule-detail.component';
 
 @NgModule({
   imports: [ //Specifies a list of modules whose exported directives/pipes should be available to templates in this module. This can also contain ModuleWithProviders.
@@ -57,13 +61,15 @@ import {GrowlModule} from 'primeng/primeng';
     DataTableModule, //PrimeNg
     CalendarModule, //PrimeNg
     GrowlModule, //PrimeNg
-
+    DataListModule, //PrimeNg
   ],
   declarations: [ //Specifies a list of directives/pipes that belong to this module.
     AppComponent,
     LoginComponent,
     HomeComponent,
     UserListComponent,
+    SitescheduleComponent,
+    SitescheduleDetailComponent,
   ],
   providers: [ //Defines the set of injectable objects that are available in the injector of this module. //Global services
     //Logger,

@@ -10,7 +10,7 @@ import {environment} from '../../environments/environment';
 export class ApiService {
   public apiPath: string = environment.backendRoot + '/api/v1';
 
-  constructor(private http: Http, private authService: AuthService) {
+  public constructor(private http: Http, private authService: AuthService) {
   }
 
   public get(path: string): Observable<any> {
@@ -34,7 +34,7 @@ export class ApiService {
   }
 
 
-  private getRequestOptions(): RequestOptions {
+  protected getRequestOptions(): RequestOptions {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + this.authService.token); // add authorization header with jwt token
     return new RequestOptions({headers: headers});

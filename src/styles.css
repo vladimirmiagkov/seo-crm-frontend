@@ -1,7 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
+.rs-text-rigth {
+    text-align: right;
+}
+
 p-dialog .ui-grid .ui-grid-row {
-    padding: 0 0 8px 0;
+    padding: 0 0 10px 0;
 }
 
 label {

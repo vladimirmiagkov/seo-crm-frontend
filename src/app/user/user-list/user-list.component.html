@@ -1,19 +1,19 @@
 <div class="container">
   <div class="row">
+    <h2>Users</h2>
 
     <p-growl [value]="popupMessages" life="5000"></p-growl>
 
-    <button label="Add new user" (click)="showDialogToAdd()" style="margin-bottom: 10px;" icon="fa-plus" type="button" pButton></button>
+    <button label="Add new user" (click)="showDialogToAdd()" style="margin-bottom: 10px;" icon="fa-user-plus" type="button" pButton></button>
 
     <p-dataTable
         [value]="users"
         sortMode="multiple"
         resizableColumns="true" columnResizeMode="expand"
-        [rows]="10" [paginator]="true" [pageLinks]="5"
+        [rows]="100" [paginator]="true" [pageLinks]="5"
         expandableRows="true"
         emptyMessage="loading..."
     >
-
       <header>Total users: {{users?.length || 'loading...'}}</header>
 
       <p-column [style]="{'width':'40px'}" expander="true" styleClass="col-icon"></p-column>
@@ -23,10 +23,10 @@
       <p-column [style]="{'width':'100px'}" field="enabled" header="enabled" [sortable]="true"></p-column>
       <p-column [style]="{'width':'170px'}" field="lastLogin" header="lastLogin" [sortable]="true">
         <template let-col let-user="rowData" pTemplate="body">
-          <span>{{ user[col.field] | date:"y-MM-dd H:m:s" }}</span>
+          <span>{{ user[col.field] | date:"y-MM-dd H:mm:ss" }}</span>
         </template>
       </p-column>
-      <p-column [style]="{'width':'160px'}" field="roles" header="roles"></p-column>
+      <p-column [style]="{'width':'160px'}" field="roles" header="roles" [sortable]="true"></p-column>
 
       <!-- edit buttons -->
       <p-column [style]="{'width':'95px'}" styleClass="col-button">
@@ -52,7 +52,7 @@
                 </div>
                 <div class="ui-grid-row">
                   <div class="ui-grid-col-2 label">createdAt:</div>
-                  <div class="ui-grid-col-10">{{user.createdAt | date:"y-MM-dd H:m:s"}}</div>
+                  <div class="ui-grid-col-10">{{user.createdAt | date:"y-MM-dd H:mm:ss"}}</div>
                 </div>
                 <div class="ui-grid-row">
                   <div class="ui-grid-col-2 label">modifiedBy:</div>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="ui-grid-row">
                   <div class="ui-grid-col-2 label">modifiedAt:</div>
-                  <div class="ui-grid-col-10">{{user.modifiedAt | date:"y-MM-dd H:m:s"}}</div>
+                  <div class="ui-grid-col-10">{{user.modifiedAt | date:"y-MM-dd H:mm:ss"}}</div>
                 </div>
               </div>
             </div>
@@ -69,11 +69,7 @@
       </template>
     </p-dataTable>
 
-    <p-dialog
-        header="{{ isNewUser?'Add user':'Edit user' }}"
-        [(visible)]="isDialogVisible"
-        [responsive]="true" showEffect="fade" [modal]="true"
-    >
+    <p-dialog [(visible)]="isDialogVisible" header="{{ isNewUser?'Add user':'Edit user' }}" [responsive]="true" showEffect="fade" [modal]="true">
       <form name="userform" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
         <div *ngIf="currentUser" class="ui-grid ui-grid-responsive ui-fluid">
           <div class="ui-grid-row">

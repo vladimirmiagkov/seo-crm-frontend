@@ -10,11 +10,11 @@ import {tokenNotExpired} from 'angular2-jwt';
 export class AuthService {
   public token: string;
 
-  constructor(private http: Http) {
+  public constructor(private http: Http) {
     this.token = localStorage.getItem('id_token');
   }
 
-  login(username: string, password: string): Observable<boolean> {
+  public login(username: string, password: string): Observable<boolean> {
     let headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
@@ -51,14 +51,14 @@ export class AuthService {
     });
   }
 
-  logout(): void {
+  public logout(): void {
     // clear token remove user from local storage to log user out
     this.token = null;
     localStorage.removeItem('currentUser');
     localStorage.removeItem('id_token');
   }
 
-  isAuthenticated() {
+  public isAuthenticated() {
     // if (localStorage.getItem('id_token')) {
     //   let jwtHelper = new JwtHelper();
     //   let token = localStorage.getItem('id_token');
