@@ -126,18 +126,17 @@ export class SitescheduleDetailComponent implements OnInit {
   save() {
     this.errors = '';
     this.isLoading = true;
-    this.service.update(this.currentObj)
-      .subscribe(
-        result => {
-          //console.dir(result);
-          this.isLoading = false;
-          //this.popupMessages.push({severity: 'success', summary: 'Update user:', detail: 'User have been<br>updated successfully.'});
-          this.saved.emit(result);
-        },
-        err => {
-          //console.dir(err);
-          this.errors = err;
-          this.isLoading = false;
-        });
+    this.service.update(this.currentObj).subscribe(
+      result => {
+        //console.dir(result);
+        this.isLoading = false;
+        //this.popupMessages.push({severity: 'success', summary: 'Update user:', detail: 'User have been<br>updated successfully.'});
+        this.saved.emit(result);
+      },
+      err => {
+        //console.dir(err);
+        this.errors = err;
+        this.isLoading = false;
+      });
   }
 }

@@ -25,18 +25,17 @@ export class SitescheduleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.service.get()
-      .subscribe(
-        result => {
-          //console.dir(result);
-          this.objs = result;
-        },
-        err => {
-          console.log(err);
-        });
+    this.service.get().subscribe(
+      result => {
+        //console.dir(result);
+        this.objs = result;
+      },
+      err => {
+        console.log(err);
+      });
   }
 
-  editSiteSchedule(id: string) {
+  edit(id: string) {
     this.currentObj = UtilService.cloneObject(
       this.objs[UtilService.findIndexById(this.objs, id)]
     );

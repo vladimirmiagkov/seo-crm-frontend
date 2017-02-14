@@ -12,101 +12,98 @@ import {NotificationService} from 'app/shared/notification.service';
   providers: [UserService]
 })
 export class UserListComponent implements OnInit {
-  public users: User[];
-
   public isDialogVisible: boolean;
-  public isNewUser: boolean;
-  public currentUser: User = new User();
-  public userErrors: string = '';
+  public errors: string = '';
   public isLoading: boolean = false;
 
+  public objs: User[];
+  public currentObj: User = new User();
+  public isNewObj: boolean;
+
   constructor(private notificationService: NotificationService,
-              private userService: UserService) {
+              private service: UserService) {
   }
 
   ngOnInit() {
-    this.userService.getUsers()
-      .subscribe(
-        result => {
-          console.dir(result);
-          this.users = result;
-        },
-        err => {
-          console.log(err);
-        });
+    this.service.get().subscribe(
+      result => {
+        console.dir(result);
+        this.objs = result;
+      },
+      err => {
+        console.log(err);
+      });
   }
 
-  editUser(id: string) {
-    this.userErrors = '';
-    this.isNewUser = false;
-    let userIndex = UtilService.findIndexById(this.users, id);
-    this.currentUser = UtilService.cloneObject(this.users[userIndex]);
+  edit(id: string) {
+    this.errors = '';
+    this.isNewObj = false;
+    this.currentObj = UtilService.cloneObject(
+      this.objs[UtilService.findIndexById(this.objs, id)]
+    );
     this.isDialogVisible = true;
   }
 
-  saveUser() {
-    this.userErrors = '';
+  save() {
+    this.errors = '';
     this.isLoading = true;
-    if (this.isNewUser) {
-      this.userService.createUser(this.currentUser)
-        .subscribe(
+    if (this.isNewObj) {
+      this.service.create(this.currentObj).subscribe(
+        result => {
+          //console.dir(result);
+          this.objs.push(result);
+          this.isLoading = false;
+          this.currentObj = null;
+          this.isDialogVisible = false;
+          this.notificationService.addMessage({severity: 'success', summary: 'Create new user:', detail: 'New user have been<br>added successfully.'});
+        },
+        err => {
+          //console.dir(err);
+          this.errors = err;
+          this.isLoading = false;
+        });
+    } else {
+      let index = UtilService.findIndexById(this.objs, this.currentObj.id);
+      if (null !== index) {
+        this.service.update(this.currentObj).subscribe(
           result => {
             //console.dir(result);
-            this.users.push(result);
+            this.objs[index] = result;
             this.isLoading = false;
-            this.currentUser = null;
+            this.currentObj = null;
             this.isDialogVisible = false;
-            this.notificationService.addMessage({severity: 'success', summary: 'Create new user:', detail: 'New user have been<br>added successfully.'});
+            this.notificationService.addMessage({severity: 'success', summary: 'Update user:', detail: 'User have been<br>updated successfully.'});
           },
           err => {
             //console.dir(err);
-            this.userErrors = err;
+            this.errors = err;
             this.isLoading = false;
           });
-    } else {
-      let userIndex = UtilService.findIndexById(this.users, this.currentUser.id);
-      if (null !== userIndex) {
-        this.userService.updateUser(this.currentUser)
-          .subscribe(
-            result => {
-              //console.dir(result);
-              this.users[userIndex] = result;
-              this.isLoading = false;
-              this.currentUser = null;
-              this.isDialogVisible = false;
-              this.notificationService.addMessage({severity: 'success', summary: 'Update user:', detail: 'User have been<br>updated successfully.'});
-            },
-            err => {
-              //console.dir(err);
-              this.userErrors = err;
-              this.isLoading = false;
-            });
       }
     }
   }
 
-  deleteUser(id: string) {
-    let userIndex = UtilService.findIndexById(this.users, id);
-    if (null !== userIndex && confirm('Delete user ' + this.users[userIndex].username + '?')) {
-      this.userService.deleteUser(id)
-        .subscribe(
-          result => {
-            //console.dir(result);
-            this.notificationService.addMessage({severity: 'success', summary: 'Delete user:', detail: 'The user was<br>successfully removed.'});
-          },
-          err => {
-            //console.dir(err);
-            this.notificationService.addMessage({severity: 'error', summary: 'Delete user:', detail: String(err)});
-          });
-      this.users.splice(userIndex, 1);
+  delete(id: string) {
+    let index = UtilService.findIndexById(this.objs, id);
+    if (null !== index && confirm('Delete user ' + this.objs[index].username + '?')) {
+      this.service.delete(id).subscribe(
+        result => {
+          //console.dir(result);
+          this.notificationService.addMessage({severity: 'success', summary: 'Delete user:', detail: 'The user was<br>successfully removed.'});
+        },
+        err => {
+          //console.dir(err);
+          this.notificationService.addMessage({severity: 'error', summary: 'Delete user:', detail: String(err)});
+        });
+      this.objs.splice(index, 1);
     }
   }
 
   showDialogToAdd() {
-    this.userErrors = '';
-    this.currentUser = new User();
-    this.currentUser.roles = 'ROLE_CLIENT';
-    this.isNewUser = true;
+    this.errors = '';
+    this.currentObj = new User();
+    this.currentObj.roles = 'ROLE_CLIENT';
+    this.isNewObj = true;
     this.isDialogVisible = true;
   }
 }
