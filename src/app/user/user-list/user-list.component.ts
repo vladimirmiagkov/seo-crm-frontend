@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 
-import {Message} from 'primeng/primeng';
-
 import {UtilService} from 'app/shared/util.service';
 import {UserService} from '../user.service';
 import {User} from '../user.model';
+import {NotificationService} from 'app/shared/notification.service';
 
 @Component({
   selector: 'app-user-list',
@@ -21,9 +20,8 @@ export class UserListComponent implements OnInit {
   public userErrors: string = '';
   public isLoading: boolean = false;
 
-  public popupMessages: Message[] = [];
-
-  constructor(private userService: UserService) {
+  constructor(private notificationService: NotificationService,
+              private userService: UserService) {
   }
 
   ngOnInit() {
@@ -58,7 +56,7 @@ export class UserListComponent implements OnInit {
             this.isLoading = false;
             this.currentUser = null;
             this.isDialogVisible = false;
-            this.popupMessages.push({severity: 'success', summary: 'Create new user:', detail: 'New user have been<br>added successfully.'});
+            this.notificationService.addMessage({severity: 'success', summary: 'Create new user:', detail: 'New user have been<br>added successfully.'});
           },
           err => {
             //console.dir(err);
@@ -76,7 +74,7 @@ export class UserListComponent implements OnInit {
               this.isLoading = false;
               this.currentUser = null;
               this.isDialogVisible = false;
-              this.popupMessages.push({severity: 'success', summary: 'Update user:', detail: 'User have been<br>updated successfully.'});
+              this.notificationService.addMessage({severity: 'success', summary: 'Update user:', detail: 'User have been<br>updated successfully.'});
             },
             err => {
               //console.dir(err);
@@ -94,11 +92,11 @@ export class UserListComponent implements OnInit {
         .subscribe(
           result => {
             //console.dir(result);
-            this.popupMessages.push({severity: 'success', summary: 'Delete user:', detail: 'The user was<br>successfully removed.'});
+            this.notificationService.addMessage({severity: 'success', summary: 'Delete user:', detail: 'The user was<br>successfully removed.'});
           },
           err => {
             //console.dir(err);
-            this.popupMessages.push({severity: 'error', summary: 'Delete user:', detail: String(err)});
+            this.notificationService.addMessage({severity: 'error', summary: 'Delete user:', detail: String(err)});
           });
       this.users.splice(userIndex, 1);
     }

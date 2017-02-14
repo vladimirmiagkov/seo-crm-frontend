@@ -24,11 +24,13 @@ import {DataTableModule, SharedModule} from 'primeng/primeng';
 import {DataListModule} from 'primeng/primeng';
 
 // App
+import {AUTH_PROVIDERS} from 'angular2-jwt';
+import {NotificationService} from './shared/notification.service';
+import {NotificationComponent} from './shared/notification.component';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ApiService} from './shared/api.service';
 import {LoginComponent} from './user/login/login.component';
-import {AUTH_PROVIDERS} from 'angular2-jwt';
 import {AuthService} from './user/auth.service';
 import {AuthGuard} from './user/auth.guard';
 import {HomeComponent} from './home/home.component';
@@ -64,6 +66,7 @@ import {SitescheduleDetailComponent} from './site/siteschedule/siteschedule-deta
     DataListModule, //PrimeNg
   ],
   declarations: [ //Specifies a list of directives/pipes that belong to this module.
+    NotificationComponent,
     AppComponent,
     LoginComponent,
     HomeComponent,
@@ -72,10 +75,10 @@ import {SitescheduleDetailComponent} from './site/siteschedule/siteschedule-deta
     SitescheduleDetailComponent,
   ],
   providers: [ //Defines the set of injectable objects that are available in the injector of this module. //Global services
-    //Logger,
+    AUTH_PROVIDERS,
+    NotificationService,
     ApiService,
     AuthService,
-    AUTH_PROVIDERS,
     AuthGuard,
   ],
   bootstrap: [ //Defines the components that should be bootstrapped when this module is bootstrapped. The components listed here will automatically be added to entryComponents.

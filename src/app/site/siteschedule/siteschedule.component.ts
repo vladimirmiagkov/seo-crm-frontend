@@ -1,11 +1,10 @@
 import {Component, OnInit, ViewChild, ChangeDetectorRef} from '@angular/core';
 
-import {Message} from 'primeng/primeng';
-
 import {UtilService} from 'app/shared/util.service';
 import {SiteSchedule} from './siteschedule.model';
 import {SiteScheduleService} from './siteschedule.service';
 import {SitescheduleDetailComponent} from './siteschedule-detail/siteschedule-detail.component';
+import {NotificationService} from 'app/shared/notification.service';
 
 @Component({
   selector: 'app-siteschedule',
@@ -15,13 +14,14 @@ import {SitescheduleDetailComponent} from './siteschedule-detail/siteschedule-de
 })
 export class SitescheduleComponent implements OnInit {
   public isDialogVisible: boolean;
-  public popupMessages: Message[] = [];
 
   public objs: SiteSchedule[];
   public currentObj: SiteSchedule = new SiteSchedule();
   @ViewChild(SitescheduleDetailComponent) sitescheduleDetailComponent: SitescheduleDetailComponent;
 
-  constructor(private service: SiteScheduleService, private ref: ChangeDetectorRef) {
+  constructor(private notificationService: NotificationService,
+              private ref: ChangeDetectorRef,
+              private service: SiteScheduleService) {
   }
 
   ngOnInit() {
@@ -49,6 +49,6 @@ export class SitescheduleComponent implements OnInit {
     //console.dir(event);
     this.objs[UtilService.findIndexById(this.objs, event.id)] = event;
     this.isDialogVisible = false;
-    this.popupMessages.push({severity: 'success', summary: 'Update site schedule:', detail: 'Site schedule have been<br>updated successfully.'});
+    this.notificationService.addMessage({severity: 'success', summary: 'Update site schedule:', detail: 'Site schedule have been<br>updated successfully.'});
   }
 }
