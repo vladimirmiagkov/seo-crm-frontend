@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-.rs-text-rigth {
+.rs-text-right {
     text-align: right;
 }
 
@@ -23,4 +23,8 @@ label {
 p-growl {
     z-index: 10000;
     position: relative;
+}
+
+.ui-calendar .ui-inputtext {
+    width: 110px !important;
 }

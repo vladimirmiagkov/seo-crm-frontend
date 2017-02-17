@@ -1,7 +1,7 @@
 <form name="sitescheduleform" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
   <div class="ui-grid ui-fluid">
     <div class="ui-grid-row">
-      <div class="ui-grid-col-6 rs-text-rigth"><label>Active</label></div>
+      <div class="ui-grid-col-6 rs-text-right"><label>Active</label></div>
       <div class="ui-grid-col-1"></div>
       <div class="ui-grid-col-4">
         <p-inputSwitch [(ngModel)]="currentObj.active" name="active" onLabel="On" offLabel="Off"></p-inputSwitch>
@@ -9,7 +9,7 @@
       <div class="ui-grid-col-1"></div>
     </div>
     <div class="ui-grid-row">
-      <div class="ui-grid-col-6 rs-text-rigth"><label>Interval between site download, hrs:</label></div>
+      <div class="ui-grid-col-6 rs-text-right"><label>Interval between site download, hrs:</label></div>
       <div class="ui-grid-col-1"></div>
       <div class="ui-grid-col-4">
         <p-checkbox [(ngModel)]="intervalBetweenSiteDownload_usedefault" (onChange)="onOffDefaults()" label="use default value" binary="true" [ngModelOptions]="{standalone: true}"></p-checkbox>
@@ -22,7 +22,7 @@
       <div class="ui-grid-col-1"></div>
     </div>
     <div class="ui-grid-row">
-      <div class="ui-grid-col-6 rs-text-rigth"><label>Interval between page download, sec:</label></div>
+      <div class="ui-grid-col-6 rs-text-right"><label>Interval between page download, sec:</label></div>
       <div class="ui-grid-col-1"></div>
       <div class="ui-grid-col-4">
         <p-checkbox [(ngModel)]="intervalBetweenPageDownload_userobotstxt" (onChange)="onOffDefaults()" label="use from robots.txt" binary="true" [ngModelOptions]="{standalone: true}"></p-checkbox>
@@ -37,7 +37,7 @@
       <div class="ui-grid-col-1"></div>
     </div>
     <div class="ui-grid-row">
-      <div class="ui-grid-col-6 rs-text-rigth"><label>Max time limit for site download, hrs:</label></div>
+      <div class="ui-grid-col-6 rs-text-right"><label>Max time limit for site download, hrs:</label></div>
       <div class="ui-grid-col-1"></div>
       <div class="ui-grid-col-4">
         <p-checkbox [(ngModel)]="maxTimeLimitForSiteDownload_usedefault" (onChange)="onOffDefaults()" label="use default value" binary="true" [ngModelOptions]="{standalone: true}"></p-checkbox>
@@ -50,7 +50,7 @@
       <div class="ui-grid-col-1"></div>
     </div>
     <div class="ui-grid-row">
-      <div class="ui-grid-col-6 rs-text-rigth"><label>Max depth level limit for site download (>=0):</label></div>
+      <div class="ui-grid-col-6 rs-text-right"><label>Max depth level limit for site download (>=0):</label></div>
       <div class="ui-grid-col-1"></div>
       <div class="ui-grid-col-4">
         <p-checkbox [(ngModel)]="maxDepthLevelLimitForSiteDownload_usedefault" (onChange)="onOffDefaults()" label="use default value" binary="true" [ngModelOptions]="{standalone: true}"></p-checkbox>
@@ -64,7 +64,7 @@
     </div>
 
     <div class="ui-grid-row">
-      <div class="ui-grid-col-6 rs-text-rigth"><label>Follow 'nofollow' links</label></div>
+      <div class="ui-grid-col-6 rs-text-right"><label>Follow 'nofollow' links</label></div>
       <div class="ui-grid-col-1"></div>
       <div class="ui-grid-col-4">
         <p-inputSwitch [(ngModel)]="currentObj.followNoFollowLinks" name="followNoFollowLinks" onLabel="Yes" offLabel="No"></p-inputSwitch>
@@ -72,7 +72,7 @@
       <div class="ui-grid-col-1"></div>
     </div>
     <div class="ui-grid-row">
-      <div class="ui-grid-col-6 rs-text-rigth"><label>Check external links for 404</label></div>
+      <div class="ui-grid-col-6 rs-text-right"><label>Check external links for 404</label></div>
       <div class="ui-grid-col-1"></div>
       <div class="ui-grid-col-4">
         <p-inputSwitch [(ngModel)]="currentObj.checkExternalLinksFor404" name="checkExternalLinksFor404" onLabel="Yes" offLabel="No"></p-inputSwitch>

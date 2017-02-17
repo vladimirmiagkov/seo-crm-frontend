@@ -6,7 +6,11 @@ import {HttpModule} from '@angular/http';
 //PrimeNg
 import {ButtonModule} from 'primeng/primeng';
 import {DialogModule} from 'primeng/primeng';
-import {ConfirmDialogModule, ConfirmationService} from 'primeng/primeng';
+import {ConfirmDialogModule} from 'primeng/primeng';
+import {MenuModule} from 'primeng/primeng';
+import {TieredMenuModule} from 'primeng/primeng';
+import {TooltipModule} from 'primeng/primeng';
+import {PaginatorModule} from 'primeng/primeng';
 import {InputTextModule} from 'primeng/primeng';
 import {InputTextareaModule} from 'primeng/primeng';
 import {CheckboxModule} from 'primeng/primeng';
@@ -46,6 +50,10 @@ import {SitescheduleDetailComponent} from './site/siteschedule/siteschedule-deta
     AppRoutingModule,
 
     SharedModule, //PrimeNg
+    MenuModule, //PrimeNg
+    TieredMenuModule, //PrimeNg
+    TooltipModule, //PrimeNg
+    PaginatorModule, //PrimeNg
     ButtonModule, //PrimeNg
     InputTextModule, //PrimeNg
     InputTextareaModule, //PrimeNg
