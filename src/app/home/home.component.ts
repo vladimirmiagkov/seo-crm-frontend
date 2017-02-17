@@ -13,6 +13,9 @@ export class HomeComponent implements OnInit {
   private viewDateTo: Date;
 
   constructor() {
+  }
+
+  ngOnInit() {
     this.viewSettingsMenu = [
       {label: 'Display/sort sites', icon: 'fa-filter',},
       {label: 'Highlight comments', icon: 'fa-commenting-o',},
@@ -29,9 +32,6 @@ export class HomeComponent implements OnInit {
         ]
       },
     ];
-  }
-
-  ngOnInit() {
   }
 
   public viewPagerPaginate(event) {

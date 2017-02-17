@@ -41,6 +41,7 @@ import {HomeComponent} from './home/home.component';
 import {UserListComponent} from './user/user-list/user-list.component';
 import {SitescheduleComponent} from './site/siteschedule/siteschedule.component';
 import {SitescheduleDetailComponent} from './site/siteschedule/siteschedule-detail/siteschedule-detail.component';
+import {SiteComponent} from './site/site/site.component';
 
 @NgModule({
   imports: [ //Specifies a list of modules whose exported directives/pipes should be available to templates in this module. This can also contain ModuleWithProviders.
@@ -73,6 +74,15 @@ import {SitescheduleDetailComponent} from './site/siteschedule/siteschedule-deta
     GrowlModule, //PrimeNg
     DataListModule, //PrimeNg
   ],
+  // Declarables are the class types — components, directives, and pipes — that you can add to a module's declarations list.
+  // They're the only classes that you can add to declarations.
+  // These classes must be declared in exactly one module of the application. Declare them in this module if they belong to this module.
+  // Do not declare:
+  // - a class that is already declared in another module, whether an app module, @angular module, or 3rd party module
+  // - an array of directives imported from another module. For example, do not declare FORMS_DIRECTIVES from @angular/forms.
+  // - module classes
+  // - service classes
+  // - non-Angular classes and objects such as strings, numbers, functions, entity models, configurations, business logic, and helper classes.
   declarations: [ //Specifies a list of directives/pipes that belong to this module.
     NotificationComponent,
     AppComponent,
@@ -81,6 +91,7 @@ import {SitescheduleDetailComponent} from './site/siteschedule/siteschedule-deta
     UserListComponent,
     SitescheduleComponent,
     SitescheduleDetailComponent,
+    SiteComponent,
   ],
   providers: [ //Defines the set of injectable objects that are available in the injector of this module. //Global services
     AUTH_PROVIDERS,

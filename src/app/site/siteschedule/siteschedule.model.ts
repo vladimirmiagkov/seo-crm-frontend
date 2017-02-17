@@ -1,7 +1,13 @@
+import {Site} from '../site/site.model';
 export class SiteSchedule {
   id: string;
-  site;
+  active: boolean = true;
+  createdBy: null | string;
+  modifiedBy: null | string;
+  createdAt: null | string;
+  modifiedAt: null | string;
 
+  site: Site;
   intervalBetweenSiteDownload: string;
   intervalBetweenPageDownload: string;
   maxTimeLimitForSiteDownload: string;
@@ -9,10 +15,4 @@ export class SiteSchedule {
   useUserAgentFromRobotsTxt: string;
   followNoFollowLinks: string;
   checkExternalLinksFor404: string;
-
-  active: boolean = true;
-  createdBy: null | string;
-  modifiedBy: null | string;
-  createdAt: null | string;
-  modifiedAt: null | string;
 }
