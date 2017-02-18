@@ -6,14 +6,14 @@
       <button label="Settings" (click)="viewsettingsmenu.toggle($event)" icon="fa fa-cog" type="button" pButton></button>
     </div>
     <div class="col-xl-4">
-      <div style="width: 440px;">
+      <div style="width: 440px;font-size: 90%;">
         <p-paginator
-            [rows]="10"
-            [totalRecords]="44"
-            [rowsPerPageOptions]="[1,5,10,20,50,100]"
-            pageLinkSize="5"
-            [first]="0"
-            (onPageChange)="viewPagerPaginate($event)"
+            [first]="viewPager.first"
+            [rows]="viewPager.rows"
+            [totalRecords]="viewPager.totalRecords"
+            [rowsPerPageOptions]="viewPager.rowsPerPageOptions"
+            [pageLinkSize]="viewPager.pageLinkSize"
+            (onPageChange)="onPaginate($event)"
         ></p-paginator>
       </div>
     </div>
@@ -25,6 +25,19 @@
     </div>
   </div>
   <div class="row" style="background-color: #f2f2f2;">
-    123
+    <p-dataTable
+        [value]="objs"
+        [lazy]="true"
+        [rows]="10"
+        [paginator]="true"
+        [totalRecords]="100"
+        (onLazyLoad)="loadCarsLazy($event)"
+    >
+      <p-header>List of Cars</p-header>
+      <p-column field="vin" header="Vin"></p-column>
+      <p-column field="year" header="Year"></p-column>
+      <p-column field="brand" header="Brand"></p-column>
+      <p-column field="color" header="Color"></p-column>
+    </p-dataTable>
   </div>
 </div>
