@@ -28,7 +28,7 @@ import {DataTableModule, SharedModule} from 'primeng/primeng';
 import {DataListModule} from 'primeng/primeng';
 
 // App
-import {AUTH_PROVIDERS} from 'angular2-jwt';
+//import {AUTH_PROVIDERS} from 'angular2-jwt';
 import {NotificationService} from './shared/notification.service';
 import {NotificationComponent} from './shared/notification.component';
 import {AppRoutingModule} from './app-routing.module';
@@ -94,7 +94,7 @@ import {SiteComponent} from './site/site/site.component';
     SiteComponent,
   ],
   providers: [ //Defines the set of injectable objects that are available in the injector of this module. //Global services
-    AUTH_PROVIDERS,
+    //AUTH_PROVIDERS,
     NotificationService,
     ApiService,
     AuthService,
