@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
+.rs-topmenu_padding {
+    padding-top: 10px;
+}
+
 .rs-text-right {
     text-align: right;
 }

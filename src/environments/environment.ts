@@ -6,4 +6,5 @@
 export const environment = {
   production: false,
   backendRoot: 'http://rssp6.ru/app_dev.php'
+  //backendRoot: 'http://rssp6.ru'
 };

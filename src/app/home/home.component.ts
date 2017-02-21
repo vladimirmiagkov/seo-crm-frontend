@@ -1,11 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MenuItem} from 'primeng/primeng';
-import {Header} from 'primeng/primeng';
-import {Footer} from 'primeng/primeng';
-import {LazyLoadEvent} from 'primeng/components/common/api';
 
-import {SiteService} from '../site/site/sites.service';
 import {Site} from '../site/site/site.model';
+import {SiteService} from '../site/site/sites.service';
+import {SiteComponent} from '../site/site/site.component';
 
 @Component({
   selector: 'app-home',
@@ -15,14 +13,16 @@ import {Site} from '../site/site/site.model';
 })
 export class HomeComponent implements OnInit {
   public viewSettingsMenu: MenuItem[];
+
   public viewPager: any;
   public viewDateFrom: Date;
   public viewDateTo: Date;
   public readonly SITEVIEW_PAGERIDENTIFIER: string = 'siteview-pager-';
 
-  public objs: Site[];
-  public currentObj: Site = new Site();
-  public isNewObj: boolean;
+  public sites: Site[];
+  //public currentSite: Site = new Site();
+  //public isNewSite: boolean;
+  @ViewChild(SiteComponent) siteComponent: SiteComponent;
 
   constructor(private siteService: SiteService) {
   }
@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit {
   }
 
   public loadSites() {
+    //console.log('loadSites');
     //console.dir(this.viewPager);
     // this.siteService.get(
     //   this.viewPager.page * this.viewPager.rows,
@@ -43,28 +44,25 @@ export class HomeComponent implements OnInit {
     // ).subscribe(
     //   result => {
     //     console.dir(result);
-    //     //this.objs = result;
+    //     this.sites = result.sites;
+    //     this.viewPager.totalRecords = result.totalRecords;
     //   },
     //   err => {
     //     console.log(err);
     //   });
+    // this.sites = JSON.parse(`[
+    // {"namePuny":"https:\/\/123.nu","id":1,"name":"https:\/\/123.nu","active":true,"deleted":false,"createdBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"modifiedBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"createdAt":"2017-02-23T09:41:56+0300","modifiedAt":"2017-02-23T09:41:56+0300"},
+    // {"namePuny":"https:\/\/fghgrth5541123.life","id":2,"name":"https:\/\/fghgrth5541123.life","active":true,"deleted":false,"createdBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"modifiedBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"createdAt":"2017-02-23T09:41:56+0300","modifiedAt":"2017-02-23T09:41:56+0300"},
+    // {"namePuny":"http:\/\/www.rsite.ru","id":3,"name":"http:\/\/www.rsite.ru","active":true,"deleted":false,"createdBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"modifiedBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"createdAt":"2017-02-23T09:41:56+0300","modifiedAt":"2017-02-23T09:41:56+0300"},
+    // {"namePuny":"https:\/\/www.example.com","id":4,"name":"https:\/\/www.example.com","active":true,"deleted":false,"createdBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"modifiedBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"createdAt":"2017-02-23T09:41:56+0300","modifiedAt":"2017-02-23T09:41:56+0300"}
+    // ]`);
+    this.sites = JSON.parse(`[{"namePuny":"https:\/\/123.nu","id":1,"name":"https:\/\/123.nu","active":true,"deleted":false,"createdBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"modifiedBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"createdAt":"2017-02-23T09:41:56+0300","modifiedAt":"2017-02-23T09:41:56+0300"}]`);
   }
 
-  public loadCarsLazy(event: LazyLoadEvent) {
-    //event.first = First row offset
-    //event.rows = Number of rows per page
-    //event.sortField = Field name to sort with
-    //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
-    //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
-
-    // if(this.datasource) {
-    //   this.cars = this.datasource.slice(event.first, (event.first + event.rows));
-    // }
-  }
-
-  // Fire up on pager change
+  // Fired up on pager change
   public onPaginate(event) {
-    console.dir(event);
+    //console.log('onPaginate');
+    //console.dir(event);
     this.viewPager.first = event.first;
     this.viewPager.rows = event.rows;
     this.viewPager.page = event.page;
@@ -72,6 +70,7 @@ export class HomeComponent implements OnInit {
 
     localStorage.setItem(this.SITEVIEW_PAGERIDENTIFIER + 'rows', this.viewPager.rows);
     localStorage.setItem(this.SITEVIEW_PAGERIDENTIFIER + 'page', this.viewPager.page);
+    localStorage.setItem(this.SITEVIEW_PAGERIDENTIFIER + 'totalRecords', this.viewPager.totalRecords);
 
     this.loadSites();
   }
@@ -102,10 +101,14 @@ export class HomeComponent implements OnInit {
       page: 0, // Index of the new page
       pageCount: 0, // Total number of pages
       totalRecords: 100, // Total records
-      rowsPerPageOptions: [1, 5, 10, 20, 50, 100], // Objects per page
+      rowsPerPageOptions: [1, 2, 5, 10, 20, 50, 100], // Objects per page
       pageLinkSize: 5, // Max visible pages in navigation
     };
 
+    let totalRecords = localStorage.getItem(this.SITEVIEW_PAGERIDENTIFIER + 'totalRecords');
+    if (null !== totalRecords) {
+      this.viewPager.totalRecords = +totalRecords;
+    }
     let rows = localStorage.getItem(this.SITEVIEW_PAGERIDENTIFIER + 'rows');
     if (null !== rows) {
       this.viewPager.rows = +rows;

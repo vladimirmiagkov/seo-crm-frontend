@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="row">
+  <div class="row rs-topmenu_padding" style="padding-bottom: 10px;width: 100%;position: fixed;z-index: 1;background-color: white;">
     <div class="col-xl-4">
       <button label="Add site" (click)="showDialogToAddNewSite()" icon="fa fa-plus" type="button" pButton></button>
       <p-tieredMenu #viewsettingsmenu [model]="viewSettingsMenu" [popup]="true"></p-tieredMenu>
@@ -24,20 +24,9 @@
       <p-calendar [(ngModel)]="viewDateTo" dateFormat="yy.mm.dd"></p-calendar>
     </div>
   </div>
-  <div class="row" style="background-color: #f2f2f2;">
-    <p-dataTable
-        [value]="objs"
-        [lazy]="true"
-        [rows]="10"
-        [paginator]="true"
-        [totalRecords]="100"
-        (onLazyLoad)="loadCarsLazy($event)"
-    >
-      <header>List of Cars</header>
-      <p-column field="vin" header="Vin"></p-column>
-      <p-column field="year" header="Year"></p-column>
-      <p-column field="brand" header="Brand"></p-column>
-      <p-column field="color" header="Color"></p-column>
-    </p-dataTable>
+  <div class="row" style="padding-top: 50px;">
+    <template ngFor let-site [ngForOf]="sites" let-i="index">
+      <app-site [site]="site"></app-site>
+    </template>
   </div>
 </div>

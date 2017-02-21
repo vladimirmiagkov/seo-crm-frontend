@@ -16,7 +16,7 @@ export class SiteService {
    * @param dateTo Stop date for sites data
    * @returns {Observable<any>}
    */
-  public get(start: any = '', limit: any = '', dateFrom: any = '', dateTo: any = '',): Observable<Site[]> {
+  public get(start: any = '', limit: any = '', dateFrom: any = '', dateTo: any = '',): Observable<any> {
     let path: string = '/site?'
       + '&start=' + start
       + '&limit=' + limit
@@ -27,7 +27,7 @@ export class SiteService {
     return this.apiService.get(path);
   }
 
-  public update(site: Site): Observable<Site> {
-    return this.apiService.put('/site/' + site.id, site);
-  }
+  // public update(site: Site): Observable<Site> {
+  //   return this.apiService.put('/site/' + site.id, site);
+  // }
 }
