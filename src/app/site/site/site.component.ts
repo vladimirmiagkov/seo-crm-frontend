@@ -11,6 +11,8 @@ import {SiteDataBlockService} from './sitesDataBlock.service';
 })
 export class SiteComponent implements OnInit {
   @Input() public site: Site;
+  @Input() public viewDateFrom: Date;
+  @Input() public viewDateTo: Date;
 
   public isDataBlockVisible: boolean = false; // Block with keywords, pages...
   public readonly DATABLOCKVISIBLE: string = 'siteview-datablockvisible-';
@@ -33,8 +35,8 @@ export class SiteComponent implements OnInit {
       this.site.id,
       this.viewPager.page * this.viewPager.rows,
       this.viewPager.rows,
-      //this.viewDateFrom,
-      //this.viewDateTo
+      this.viewDateFrom,
+      this.viewDateTo
     ).subscribe(
       result => {
         console.dir(result);

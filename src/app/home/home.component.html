@@ -26,7 +26,7 @@
   </div>
   <div class="row" style="padding-top: 50px;">
     <template ngFor let-site [ngForOf]="sites" let-i="index">
-      <app-site [site]="site"></app-site>
+      <app-site [site]="site" [viewDateFrom]="viewDateFrom" [viewDateTo]="viewDateTo"></app-site>
     </template>
   </div>
 </div>

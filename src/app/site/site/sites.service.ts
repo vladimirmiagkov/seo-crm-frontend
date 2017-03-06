@@ -20,8 +20,8 @@ export class SiteService {
     let path: string = '/site?'
       + '&start=' + start
       + '&limit=' + limit
-      + '&datefrom=' + dateFrom
-      + '&dateto=' + dateTo;
+      + '&datefrom=' + (dateFrom !== '' ? parseInt((new Date(dateFrom).getTime() / 1000).toFixed(0)) : '')
+      + '&dateto=' + (dateTo !== '' ? parseInt((new Date(dateTo).getTime() / 1000).toFixed(0)) : '');
     console.log(path);
 
     return this.apiService.get(path);
