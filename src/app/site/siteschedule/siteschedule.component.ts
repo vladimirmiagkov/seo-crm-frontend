@@ -27,8 +27,8 @@ export class SitescheduleComponent implements OnInit {
   ngOnInit() {
     this.service.get().subscribe(
       result => {
-        //console.dir(result);
-        this.objs = result;
+        console.dir(result);
+        this.objs = result.result;
       },
       err => {
         console.log(err);

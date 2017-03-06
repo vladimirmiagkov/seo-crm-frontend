@@ -25,10 +25,10 @@ export class SiteComponent implements OnInit {
   ngOnInit() {
     this.initViewPager();
     this.initDataBlock();
+    this.loadDataBlock();
   }
 
   public loadDataBlock() {
-    console.log('loadDataBlock');
     this.siteDataBlockService.get(
       this.site.id,
       this.viewPager.page * this.viewPager.rows,
@@ -96,7 +96,6 @@ export class SiteComponent implements OnInit {
     } else {
       this.isDataBlockVisible = true;
     }
-    this.loadDataBlock();
   }
 
   public toggleDataBlockVisible() {

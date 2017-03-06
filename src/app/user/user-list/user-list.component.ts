@@ -28,7 +28,7 @@ export class UserListComponent implements OnInit {
     this.service.get().subscribe(
       result => {
         console.dir(result);
-        this.objs = result;
+        this.objs = result.result;
       },
       err => {
         console.log(err);
@@ -50,8 +50,8 @@ export class UserListComponent implements OnInit {
     if (this.isNewObj) {
       this.service.create(this.currentObj).subscribe(
         result => {
-          //console.dir(result);
-          this.objs.push(result);
+          console.dir(result);
+          this.objs.push(result.result);
           this.isLoading = false;
           this.currentObj = null;
           this.isDialogVisible = false;
@@ -67,8 +67,8 @@ export class UserListComponent implements OnInit {
       if (null !== index) {
         this.service.update(this.currentObj).subscribe(
           result => {
-            //console.dir(result);
-            this.objs[index] = result;
+            console.dir(result);
+            this.objs[index] = result.result;
             this.isLoading = false;
             this.currentObj = null;
             this.isDialogVisible = false;
@@ -88,7 +88,7 @@ export class UserListComponent implements OnInit {
     if (null !== index && confirm('Delete user ' + this.objs[index].username + '?')) {
       this.service.delete(id).subscribe(
         result => {
-          //console.dir(result);
+          console.dir(result);
           this.notificationService.addMessage({severity: 'success', summary: 'Delete user:', detail: 'The user was<br>successfully removed.'});
         },
         err => {

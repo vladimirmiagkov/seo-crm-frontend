@@ -34,8 +34,8 @@ export class HomeComponent implements OnInit {
   }
 
   public loadSites() {
-    //console.log('loadSites');
     //console.dir(this.viewPager);
+
     // this.siteService.get(
     //   this.viewPager.page * this.viewPager.rows,
     //   this.viewPager.rows,
@@ -44,18 +44,13 @@ export class HomeComponent implements OnInit {
     // ).subscribe(
     //   result => {
     //     console.dir(result);
-    //     this.sites = result.sites;
-    //     this.viewPager.totalRecords = result.totalRecords;
+    //     this.sites = result.result.sites;
+    //     this.viewPager.totalRecords = result.result.totalRecords;
     //   },
     //   err => {
     //     console.log(err);
     //   });
-    // this.sites = JSON.parse(`[
-    // {"namePuny":"https:\/\/123.nu","id":1,"name":"https:\/\/123.nu","active":true,"deleted":false,"createdBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"modifiedBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"createdAt":"2017-02-23T09:41:56+0300","modifiedAt":"2017-02-23T09:41:56+0300"},
-    // {"namePuny":"https:\/\/fghgrth5541123.life","id":2,"name":"https:\/\/fghgrth5541123.life","active":true,"deleted":false,"createdBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"modifiedBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"createdAt":"2017-02-23T09:41:56+0300","modifiedAt":"2017-02-23T09:41:56+0300"},
-    // {"namePuny":"http:\/\/www.rsite.ru","id":3,"name":"http:\/\/www.rsite.ru","active":true,"deleted":false,"createdBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"modifiedBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"createdAt":"2017-02-23T09:41:56+0300","modifiedAt":"2017-02-23T09:41:56+0300"},
-    // {"namePuny":"https:\/\/www.example.com","id":4,"name":"https:\/\/www.example.com","active":true,"deleted":false,"createdBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"modifiedBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"createdAt":"2017-02-23T09:41:56+0300","modifiedAt":"2017-02-23T09:41:56+0300"}
-    // ]`);
+
     this.sites = JSON.parse(`[{"namePuny":"https:\/\/123.nu","id":1,"name":"https:\/\/123.nu","active":true,"deleted":false,"createdBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"modifiedBy":{"id":2,"username":"user1","email":"info2@rsite.ru","enabled":true,"lastLogin":null,"roles":["ROLE_CLIENT"],"createdBy":null,"modifiedBy":null,"createdAt":"2017-02-23T09:41:55+0300","modifiedAt":"2017-02-23T09:41:55+0300"},"createdAt":"2017-02-23T09:41:56+0300","modifiedAt":"2017-02-23T09:41:56+0300"}]`);
   }
 

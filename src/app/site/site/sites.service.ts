@@ -27,7 +27,7 @@ export class SiteService {
     return this.apiService.get(path);
   }
 
-  // public update(site: Site): Observable<Site> {
+  // public update(site: Site): Observable<any> {
   //   return this.apiService.put('/site/' + site.id, site);
   // }
 }

@@ -9,11 +9,11 @@ export class SiteScheduleService {
   public constructor(private apiService: ApiService) {
   }
 
-  public get(): Observable<SiteSchedule[]> {
+  public get(): Observable<any> {
     return this.apiService.get('/siteschedule');
   }
 
-  public update(siteSchedule: SiteSchedule): Observable<SiteSchedule> {
+  public update(siteSchedule: SiteSchedule): Observable<any> {
     return this.apiService.put('/siteschedule/' + siteSchedule.id, siteSchedule);
   }
 }

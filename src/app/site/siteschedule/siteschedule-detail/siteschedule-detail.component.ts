@@ -128,10 +128,10 @@ export class SitescheduleDetailComponent implements OnInit {
     this.isLoading = true;
     this.service.update(this.currentObj).subscribe(
       result => {
-        //console.dir(result);
+        console.dir(result);
         this.isLoading = false;
         //this.popupMessages.push({severity: 'success', summary: 'Update user:', detail: 'User have been<br>updated successfully.'});
-        this.saved.emit(result);
+        this.saved.emit(result.result);
       },
       err => {
         //console.dir(err);
