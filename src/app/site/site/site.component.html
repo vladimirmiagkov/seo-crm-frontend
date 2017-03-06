@@ -1,4 +1,4 @@
-<div class="container-fluid" style="background-color: aquamarine;">
+<div class="container-fluid" style="/*background-color: aquamarine;*/">
   <div class="row">
     <div class="col-xl-2">
       pictures
@@ -7,7 +7,6 @@
       Site name: {{ site.name }}<br>
       Site namePuny: {{ site.namePuny }}<br>
       Site active: {{ site.active }}<br>
-      some info ...<br>
     </div>
     <div class="col-xl-2">
       Achievements
@@ -40,7 +39,8 @@
     </div>
     <div class="row">
       <div class="col-xl-12" style="background-color: blanchedalmond;">
-        key/pages data ...
+        <div *ngIf="isDataBlockLoading" class="fa-spinner--wrapper" style="left: 5px;position: absolute;"><i class="fa fa-spinner fa-spin"></i></div>
+        pages/keys...
         <button label="reload" (click)="loadDataBlock()" type="button" pButton></button>
       </div>
     </div>

@@ -14,9 +14,10 @@ export class SiteComponent implements OnInit {
   @Input() public viewDateFrom: Date;
   @Input() public viewDateTo: Date;
 
+  public dataBlock; // Data: Keywords, pages...
   public isDataBlockVisible: boolean = false; // Block with keywords, pages...
   public readonly DATABLOCKVISIBLE: string = 'siteview-datablockvisible-';
-  public dataBlock; // Data: Keywords, pages...
+  public isDataBlockLoading: boolean = false;
 
   public viewPager: any;
   public readonly DATABLOCKPAGER: string = 'siteview-datablockpager-';
@@ -31,6 +32,7 @@ export class SiteComponent implements OnInit {
   }
 
   public loadDataBlock() {
+    this.isDataBlockLoading = true;
     this.siteDataBlockService.get(
       this.site.id,
       this.viewPager.page * this.viewPager.rows,
@@ -40,12 +42,14 @@ export class SiteComponent implements OnInit {
     ).subscribe(
       result => {
         console.dir(result);
-        this.dataBlock = result.result.pages;
+        this.dataBlock = result.result.objs;
         this.viewPager.totalRecords = result.result.totalRecords;
         this.savePager();
+        this.isDataBlockLoading = false;
       },
       err => {
         console.log(err);
+        this.isDataBlockLoading = false;
       });
   }
 
