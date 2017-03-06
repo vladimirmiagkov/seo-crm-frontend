@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit {
     //     console.dir(result);
     //     this.sites = result.result.sites;
     //     this.viewPager.totalRecords = result.result.totalRecords;
+    //     this.savePager();
     //   },
     //   err => {
     //     console.log(err);
@@ -63,10 +64,7 @@ export class HomeComponent implements OnInit {
     this.viewPager.page = event.page;
     this.viewPager.pageCount = event.pageCount;
 
-    localStorage.setItem(this.SITEVIEW_PAGERIDENTIFIER + 'rows', this.viewPager.rows);
-    localStorage.setItem(this.SITEVIEW_PAGERIDENTIFIER + 'page', this.viewPager.page);
-    localStorage.setItem(this.SITEVIEW_PAGERIDENTIFIER + 'totalRecords', this.viewPager.totalRecords);
-
+    this.savePager();
     this.loadSites();
   }
 
@@ -113,5 +111,11 @@ export class HomeComponent implements OnInit {
       this.viewPager.page = +page;
       this.viewPager.first = +page * +rows;
     }
+  }
+
+  private savePager() {
+    localStorage.setItem(this.SITEVIEW_PAGERIDENTIFIER + 'rows', this.viewPager.rows);
+    localStorage.setItem(this.SITEVIEW_PAGERIDENTIFIER + 'page', this.viewPager.page);
+    localStorage.setItem(this.SITEVIEW_PAGERIDENTIFIER + 'totalRecords', this.viewPager.totalRecords);
   }
 }

@@ -38,8 +38,9 @@ export class SiteComponent implements OnInit {
     ).subscribe(
       result => {
         console.dir(result);
-        //this.sites = result.sites;
-        //this.viewPager.totalRecords = result.totalRecords;
+        this.dataBlock = result.result.pages;
+        this.viewPager.totalRecords = result.result.totalRecords;
+        this.savePager();
       },
       err => {
         console.log(err);
@@ -55,10 +56,7 @@ export class SiteComponent implements OnInit {
     this.viewPager.page = event.page;
     this.viewPager.pageCount = event.pageCount;
 
-    localStorage.setItem(this.DATABLOCKPAGER + this.site.id + '-rows', this.viewPager.rows);
-    localStorage.setItem(this.DATABLOCKPAGER + this.site.id + '-page', this.viewPager.page);
-    localStorage.setItem(this.DATABLOCKPAGER + this.site.id + '-totalRecords', this.viewPager.totalRecords);
-
+    this.savePager();
     this.loadDataBlock();
   }
 
@@ -101,5 +99,11 @@ export class SiteComponent implements OnInit {
   public toggleDataBlockVisible() {
     this.isDataBlockVisible = !this.isDataBlockVisible;
     localStorage.setItem(this.DATABLOCKVISIBLE + this.site.id, String(this.isDataBlockVisible));
+  }
+
+  private savePager() {
+    localStorage.setItem(this.DATABLOCKPAGER + this.site.id + '-rows', this.viewPager.rows);
+    localStorage.setItem(this.DATABLOCKPAGER + this.site.id + '-page', this.viewPager.page);
+    localStorage.setItem(this.DATABLOCKPAGER + this.site.id + '-totalRecords', this.viewPager.totalRecords);
   }
 }
