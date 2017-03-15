@@ -14,34 +14,100 @@
   </div>
   <div class="row">
     <div class="col-xl-12">
-      <button
-          [label]="(isDataBlockVisible ? 'Hide' : 'Show') + ' keywords and pages'"
-          (click)="toggleDataBlockVisible()" style="width: 100%;padding: 0;" icon="fa " type="button" pButton></button>
+      <button [label]="(isDataBlockVisible ? 'Hide' : 'Show') + ' keywords and pages'"
+              (click)="toggleDataBlockVisible()" style="width: 100%;padding: 0;" icon="fa " type="button" pButton></button>
     </div>
   </div>
   <div *ngIf="isDataBlockVisible">
-    <div class="row">
+    <div class="row" *ngIf="filter.isVisible">
+      <div class="col-xl-8">
+        <div style="margin-top: 15px;padding: 10px;background-color: #f4f3f4;border-radius: 0.2em;">
+          <table>
+            <thead>
+            <tr>
+              <td>&nbsp;</td>
+              <td style="text-align: center;">Filter by:</td>
+              <td style="text-align: center;">Sort direction</td>
+              <td>Order</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td style="text-align: right;">Search engine (page):</td>
+              <td>
+                <p-multiSelect [options]="filter.defaults.searchEngines" [(ngModel)]="filter.page.searchEngine.value" defaultLabel="&nbsp;"></p-multiSelect>
+              </td>
+              <td>
+                <p-selectButton [options]="filter.defaults.sortDirections" [(ngModel)]="filter.page.searchEngine.sort"></p-selectButton>
+              </td>
+              <td style="text-align: center;"><i class="fa fa-arrows" aria-hidden="true"></i></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 15px;">
       <div class="col-xl-3">
-        Keywords: ?, Pages: ?
+        <div *ngIf="isDataBlockLoading" class="fa-spinner--wrapper" style="right: 1px;position: absolute;"><i class="fa fa-spinner fa-spin"></i></div>
+        <button title="Reload this site dataBlock" (click)="loadDataBlock()" icon="fa fa-refresh" type="button" pButton></button>
+        <button title="Show / Hide Filter" (click)="toggleFilterVisible()" icon="fa fa-filter" type="button" pButton></button>
+        debugqueries:{{debugqueries}}
       </div>
       <div class="col-xl-9">
         <div style="width: 600px;font-size: 90%;">
           <p-paginator
-              [first]="viewPager.first"
-              [rows]="viewPager.rows"
-              [totalRecords]="viewPager.totalRecords"
-              [rowsPerPageOptions]="viewPager.rowsPerPageOptions"
-              [pageLinkSize]="viewPager.pageLinkSize"
+              [first]="dataBlockPager.first"
+              [rows]="dataBlockPager.rows"
+              [totalRecords]="dataBlockPager.totalRecords"
+              [rowsPerPageOptions]="dataBlockPager.rowsPerPageOptions"
+              [pageLinkSize]="dataBlockPager.pageLinkSize"
               (onPageChange)="onPaginate($event)"
           ></p-paginator>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-xl-12" style="background-color: blanchedalmond;">
-        <div *ngIf="isDataBlockLoading" class="fa-spinner--wrapper" style="left: 5px;position: absolute;"><i class="fa fa-spinner fa-spin"></i></div>
-        pages/keys...
-        <button label="reload" (click)="loadDataBlock()" type="button" pButton></button>
+    <div class="row" style="padding-top: 10px;">
+      <div class="col-xl-12" style="/*background-color: blanchedalmond;*/">
+        <div>
+          <!-- dataBlock: header row -->
+          <div class="db-row db-header">
+            <div class="db-cell db-cell-from">From</div>
+            <div class="db-cell db-cell-tags">Tags</div>
+            <div class="db-cell db-cell-req">Req</div>
+            <div class="db-cell db-cell-se">SE</div>
+            <div class="db-cell db-cell-name">Name</div>
+            <div class="db-cell db-cell-buttons">btns</div>
+            <div class="db-cell db-cell-zero">---</div>
+            <!--<div class="db-cell db-celldata" *ngFor="let enumerateDate of enumerateDates">{{ enumerateDate }}</div>-->
+          </div>
+
+          <!-- dataBlock: page row -->
+          <template ngFor let-obj [ngForOf]="dataBlock?.pages">
+            <div class="db-row">
+              <div class="db-cell db-cell-from">&nbsp;</div>
+              <div class="db-cell db-cell-tags">&nbsp;</div>
+              <div class="db-cell db-cell-req">&nbsp;</div>
+              <div class="db-cell db-cell-se">&nbsp;</div>
+              <div class="db-cell db-cell-name">{{ obj.name }}</div>
+              <div class="db-cell db-cell-buttons">&nbsp;</div>
+              <div class="db-cell db-cell-zero">&nbsp;</div>
+              <!--<div class="db-cell db-celldata" *ngFor="let enumerateDate of enumerateDates">&nbsp;</div>-->
+            </div>
+            <template ngFor let-obj2 [ngForOf]="obj?.keywords">
+              <div class="db-row">
+                <div class="db-cell db-cell-from">Denver</div>
+                <div class="db-cell db-cell-tags">some, tags, ...</div>
+                <div class="db-cell db-cell-req">900</div>
+                <div class="db-cell db-cell-se">G</div>
+                <div class="db-cell db-cell-name">&nbsp;&nbsp;&nbsp;&nbsp;{{ obj2.name }}</div>
+                <div class="db-cell db-cell-buttons">&nbsp;</div>
+                <div class="db-cell db-cell-zero">&nbsp;</div>
+                <!--<div class="db-cell db-celldata" *ngFor="let enumerateDate of enumerateDates">{{ enumerateDate }}</div>-->
+              </div>
+            </template>
+          </template>
+        </div>
       </div>
     </div>
   </div>

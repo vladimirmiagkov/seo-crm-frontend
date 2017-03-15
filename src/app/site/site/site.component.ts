@@ -1,5 +1,8 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, ChangeDetectorRef} from '@angular/core';
 
+import {SelectItem} from 'primeng/primeng';
+
+import {UtilService} from 'app/shared/util.service';
 import {Site} from './site.model';
 import {SiteDataBlockService} from './sitesDataBlock.service';
 
@@ -14,38 +17,67 @@ export class SiteComponent implements OnInit {
   @Input() public viewDateFrom: Date;
   @Input() public viewDateTo: Date;
 
-  public dataBlock; // Data: Keywords, pages...
-  public isDataBlockVisible: boolean = false; // Block with keywords, pages...
-  public readonly DATABLOCKVISIBLE: string = 'siteview-datablockvisible-';
+  public debugqueries; //TODO: remove debug
+
+  public filter = {
+    isVisible: true,
+    defaults: {
+      sortDirections: [{label: 'None', value: ''}, {label: 'ASC', value: 'asc'}, {label: 'DESC', value: 'desc'}],
+      searchEngines: [{label: 'Google', value: '0'}, {label: 'Yandex', value: '1'}], // All available Search Engines
+    },
+    page: {
+      searchEngine: {
+        value: [],
+        sort: ''
+      }
+    }
+  };
+
+  public dataBlockPager: any;
+  public readonly DATABLOCK_PAGER_IDENTIFIER: string = 'siteview-datablockpager-';
+
+  // dataBlock - Block with keywords, pages...
+  public dataBlock; // Main array with all data from backend
   public isDataBlockLoading: boolean = false;
+  public isDataBlockVisible: boolean = false;
+  public readonly DATABLOCK_VISIBLE_IDENTIFIER: string = 'siteview-datablockvisible-';
 
-  public viewPager: any;
-  public readonly DATABLOCKPAGER: string = 'siteview-datablockpager-';
+  public siteSeoStrategy: number; // 0 = pages contains keywords; 1 = keywords contains pages
+  //public enumerateDates: string[] = []; // Array with days enumeration(from viewDateFrom to viewDateTo), like ['08', '07', '06', ...]
 
-  constructor(private siteDataBlockService: SiteDataBlockService) {
+  constructor(private siteDataBlockService: SiteDataBlockService,
+              private ref: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     this.initViewPager();
     this.initDataBlock();
-    this.loadDataBlock();
+    //this.generateEnumerateDates();
   }
 
   public loadDataBlock() {
     this.isDataBlockLoading = true;
     this.siteDataBlockService.get(
       this.site.id,
-      this.viewPager.page * this.viewPager.rows,
-      this.viewPager.rows,
+      this.dataBlockPager.page * this.dataBlockPager.rows,
+      this.dataBlockPager.rows,
       this.viewDateFrom,
       this.viewDateTo
     ).subscribe(
       result => {
-        console.dir(result);
-        this.dataBlock = result.result.objs;
-        this.viewPager.totalRecords = result.result.totalRecords;
+        console.log(result);
+
+        // Set data
+        this.dataBlock = result.result;
+        this.siteSeoStrategy = +result.siteSeoStrategyKeywordPage;
+        this.dataBlockPager.totalRecords = result.result.totalRecords;
+        this.debugqueries = result['z_totalQueries'];
+
+        // Proceed some values
+
         this.savePager();
         this.isDataBlockLoading = false;
+        this.ref.detectChanges();
       },
       err => {
         console.log(err);
@@ -53,21 +85,22 @@ export class SiteComponent implements OnInit {
       });
   }
 
+
   // Fired up on pager change
   public onPaginate(event) {
     //console.log('onPaginate');
     //console.dir(event);
-    this.viewPager.first = event.first;
-    this.viewPager.rows = event.rows;
-    this.viewPager.page = event.page;
-    this.viewPager.pageCount = event.pageCount;
+    this.dataBlockPager.first = event.first;
+    this.dataBlockPager.rows = event.rows;
+    this.dataBlockPager.page = event.page;
+    this.dataBlockPager.pageCount = event.pageCount;
 
     this.savePager();
     this.loadDataBlock();
   }
 
   private initViewPager() {
-    this.viewPager = {
+    this.dataBlockPager = {
       first: 0, // Index of the first record
       rows: 10, // Number of rows to display in new page
       page: 0, // Index of the new page
@@ -77,39 +110,71 @@ export class SiteComponent implements OnInit {
       pageLinkSize: 5, // Max visible pages in navigation
     };
 
-    let totalRecords = localStorage.getItem(this.DATABLOCKPAGER + this.site.id + '-totalRecords');
+    let totalRecords = localStorage.getItem(this.DATABLOCK_PAGER_IDENTIFIER + this.site.id + '-totalRecords');
     if (null !== totalRecords) {
-      this.viewPager.totalRecords = +totalRecords;
+      this.dataBlockPager.totalRecords = +totalRecords;
     }
-    let rows = localStorage.getItem(this.DATABLOCKPAGER + this.site.id + '-rows');
+    let rows = localStorage.getItem(this.DATABLOCK_PAGER_IDENTIFIER + this.site.id + '-rows');
     if (null !== rows) {
-      this.viewPager.rows = +rows;
+      this.dataBlockPager.rows = +rows;
     }
-    let page = localStorage.getItem(this.DATABLOCKPAGER + this.site.id + '-page');
+    let page = localStorage.getItem(this.DATABLOCK_PAGER_IDENTIFIER + this.site.id + '-page');
     if (null !== page) {
-      this.viewPager.page = +page;
-      this.viewPager.first = +page * +rows;
+      this.dataBlockPager.page = +page;
+      this.dataBlockPager.first = +page * +rows;
     }
   }
 
   private initDataBlock() {
-    //console.dir(this.site);
-    let isVisible = localStorage.getItem(this.DATABLOCKVISIBLE + this.site.id);
+    let isVisible = localStorage.getItem(this.DATABLOCK_VISIBLE_IDENTIFIER + this.site.id);
+    //console.log('initDataBlock DATABLOCK_VISIBLE_IDENTIFIER = ' + isVisible);
     if (null !== isVisible) {
-      this.isDataBlockVisible = (isVisible.toLowerCase() === 'true');
+      this.isDataBlockVisible = (isVisible.toLowerCase() === 'true'); // decode existing value
     } else {
       this.isDataBlockVisible = true;
+    }
+    if (this.isDataBlockVisible) {
+      this.loadDataBlock();
     }
   }
 
   public toggleDataBlockVisible() {
     this.isDataBlockVisible = !this.isDataBlockVisible;
-    localStorage.setItem(this.DATABLOCKVISIBLE + this.site.id, String(this.isDataBlockVisible));
+    localStorage.setItem(this.DATABLOCK_VISIBLE_IDENTIFIER + this.site.id, String(this.isDataBlockVisible));
+    //console.log('toggleDataBlockVisible this.isDataBlockVisible = ' + this.isDataBlockVisible);
+    if (this.isDataBlockVisible) {
+      this.loadDataBlock();
+    }
+  }
+
+  public toggleFilterVisible() {
+    this.filter.isVisible = !this.filter.isVisible;
+    //localStorage.setItem(this.DATABLOCK_VISIBLE_IDENTIFIER + this.site.id, String(this.isDataBlockVisible));
+    //console.log('toggleDataBlockVisible this.isDataBlockVisible = ' + this.isDataBlockVisible);
   }
 
   private savePager() {
-    localStorage.setItem(this.DATABLOCKPAGER + this.site.id + '-rows', this.viewPager.rows);
-    localStorage.setItem(this.DATABLOCKPAGER + this.site.id + '-page', this.viewPager.page);
-    localStorage.setItem(this.DATABLOCKPAGER + this.site.id + '-totalRecords', this.viewPager.totalRecords);
+    localStorage.setItem(this.DATABLOCK_PAGER_IDENTIFIER + this.site.id + '-rows', this.dataBlockPager.rows);
+    localStorage.setItem(this.DATABLOCK_PAGER_IDENTIFIER + this.site.id + '-page', this.dataBlockPager.page);
+    localStorage.setItem(this.DATABLOCK_PAGER_IDENTIFIER + this.site.id + '-totalRecords', this.dataBlockPager.totalRecords);
   }
+
+  // private generateEnumerateDates() {
+  //   if (!this.viewDateFrom) {
+  //     this.viewDateFrom = new Date(); // Set defaults
+  //   }
+  //   if (!this.viewDateTo) {
+  //     this.viewDateTo = new Date(); // Set defaults
+  //     this.viewDateTo.setMonth(this.viewDateTo.getMonth() - 1); // Default date range is: 1 month
+  //   }
+  //
+  //   let interval = 1 + UtilService.numberOfDaysBetweenTwoDates(this.viewDateFrom, this.viewDateTo);
+  //   //console.log('interval=' + interval);
+  //   for (let i = 0; i < interval; i++) {
+  //     let tmp: Date = new Date(+this.viewDateFrom);
+  //     tmp.setDate(this.viewDateFrom.getDate() - i);
+  //     //console.log('tmp=' + tmp + ' day=' + tmp.getDate());
+  //     this.enumerateDates.push(('00' + (tmp.getDate())).slice(-2));
+  //   }
+  // }
 }

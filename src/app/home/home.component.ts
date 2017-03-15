@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   public viewPager: any;
   public viewDateFrom: Date;
   public viewDateTo: Date;
-  public readonly SITEVIEW_PAGERIDENTIFIER: string = 'siteview-pager-';
+  public readonly SITEVIEW_PAGER_IDENTIFIER: string = 'siteview-pager-';
 
   public sites: Site[];
   //public currentSite: Site = new Site();
@@ -28,6 +28,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.viewDateFrom = new Date(); // Set defaults
+    this.viewDateTo = new Date(); // Set defaults
+    this.viewDateTo.setMonth(this.viewDateTo.getMonth() - 1);
+
     this.initViewSettingsMenu();
     this.initViewPager();
     this.loadSites();
@@ -98,15 +102,15 @@ export class HomeComponent implements OnInit {
       pageLinkSize: 5, // Max visible pages in navigation
     };
 
-    let totalRecords = localStorage.getItem(this.SITEVIEW_PAGERIDENTIFIER + 'totalRecords');
+    let totalRecords = localStorage.getItem(this.SITEVIEW_PAGER_IDENTIFIER + 'totalRecords');
     if (null !== totalRecords) {
       this.viewPager.totalRecords = +totalRecords;
     }
-    let rows = localStorage.getItem(this.SITEVIEW_PAGERIDENTIFIER + 'rows');
+    let rows = localStorage.getItem(this.SITEVIEW_PAGER_IDENTIFIER + 'rows');
     if (null !== rows) {
       this.viewPager.rows = +rows;
     }
-    let page = localStorage.getItem(this.SITEVIEW_PAGERIDENTIFIER + 'page');
+    let page = localStorage.getItem(this.SITEVIEW_PAGER_IDENTIFIER + 'page');
     if (null !== page) {
       this.viewPager.page = +page;
       this.viewPager.first = +page * +rows;
@@ -114,8 +118,8 @@ export class HomeComponent implements OnInit {
   }
 
   private savePager() {
-    localStorage.setItem(this.SITEVIEW_PAGERIDENTIFIER + 'rows', this.viewPager.rows);
-    localStorage.setItem(this.SITEVIEW_PAGERIDENTIFIER + 'page', this.viewPager.page);
-    localStorage.setItem(this.SITEVIEW_PAGERIDENTIFIER + 'totalRecords', this.viewPager.totalRecords);
+    localStorage.setItem(this.SITEVIEW_PAGER_IDENTIFIER + 'rows', this.viewPager.rows);
+    localStorage.setItem(this.SITEVIEW_PAGER_IDENTIFIER + 'page', this.viewPager.page);
+    localStorage.setItem(this.SITEVIEW_PAGER_IDENTIFIER + 'totalRecords', this.viewPager.totalRecords);
   }
 }
