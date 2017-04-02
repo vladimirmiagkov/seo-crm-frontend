@@ -1,94 +1,96 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <h2>Site download and analyze schedule</h2>
+    <div class="col-sm-12">
+      <h2>Site download and analyze schedule</h2>
 
-    <p-dataTable
-        [value]="objs"
-        sortMode="multiple"
-        resizableColumns="true" columnResizeMode="expand"
-        [rows]="100" [paginator]="true" [pageLinks]="5"
-        expandableRows="true"
-        emptyMessage="loading..."
-    >
-      <header>Site shedules</header>
+      <p-dataTable
+          [value]="objs"
+          sortMode="multiple"
+          resizableColumns="true" columnResizeMode="expand"
+          [rows]="100" [paginator]="true" [pageLinks]="5"
+          expandableRows="true"
+          emptyMessage="loading..."
+      >
+        <header>Site shedules</header>
 
-      <p-column [style]="{'width':'40px'}" expander="true" styleClass="col-icon"></p-column>
-      <p-column [style]="{'width':'55px'}" field="id" header="id" [sortable]="true"></p-column>
-      <p-column [style]="{'width':'60px'}" header="on" [sortable]="true">
-        <template let-obj="rowData" pTemplate="body">
-          {{obj.active ? 'on' : 'off'}}
-        </template>
-      </p-column>
-      <p-column field="site.name" header="site name" [sortable]="true"></p-column>
-      <p-column field="intervalBetweenSiteDownload" header="Interval btw site dwn, hrs" [sortable]="true"></p-column>
-      <p-column field="intervalBetweenPageDownload" header="Interval btw page dwn, sec" [sortable]="true"></p-column>
+        <p-column [style]="{'width':'40px'}" expander="true" styleClass="col-icon"></p-column>
+        <p-column [style]="{'width':'55px'}" field="id" header="id" [sortable]="true"></p-column>
+        <p-column [style]="{'width':'60px'}" header="on" [sortable]="true">
+          <template let-obj="rowData" pTemplate="body">
+            {{obj.active ? 'on' : 'off'}}
+          </template>
+        </p-column>
+        <p-column field="site.name" header="site name" [sortable]="true"></p-column>
+        <p-column field="intervalBetweenSiteDownload" header="Interval btw site dwn, hrs" [sortable]="true"></p-column>
+        <p-column field="intervalBetweenPageDownload" header="Interval btw page dwn, sec" [sortable]="true"></p-column>
 
-      <!-- edit buttons -->
-      <p-column [style]="{'width':'55px'}" styleClass="col-button">
-        <template pTemplate="header"></template>
-        <template let-obj="rowData" pTemplate="body">
-          <button (click)="edit(obj.id)" icon="fa-pencil-square-o" type="button" pButton></button>
-        </template>
-      </p-column>
+        <!-- edit buttons -->
+        <p-column [style]="{'width':'55px'}" styleClass="col-button">
+          <template pTemplate="header"></template>
+          <template let-obj="rowData" pTemplate="body">
+            <button (click)="edit(obj.id)" icon="fa-pencil-square-o" type="button" pButton></button>
+          </template>
+        </p-column>
 
-      <!-- expanded row -->
-      <template let-obj pTemplate="rowexpansion">
-        <div class="ui-grid ui-grid-responsive ui-fluid">
-          <div class="ui-grid-row">
-            <div class="ui-grid-col-1" style="text-align:center">
-              <!--<i class="fa fa-search" style="cursor:pointer;float:left;margin-top:40px"></i>-->
-            </div>
-            <div class="ui-grid-col-11">
-              <div class="ui-grid ui-grid-responsive ui-grid-pad">
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-5 label">Max time limit for site download, hrs:</div>
-                  <div class="ui-grid-col-7">{{obj.maxTimeLimitForSiteDownload}}</div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-5 label">Max depth level limit for site download:</div>
-                  <div class="ui-grid-col-7">{{obj.maxDepthLevelLimitForSiteDownload}}</div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-5 label">Use User-Agent from robots.txt?</div>
-                  <div class="ui-grid-col-7">{{obj.useUserAgentFromRobotsTxt}}</div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-5 label">Follow 'nofollow' links?</div>
-                  <div class="ui-grid-col-7">{{obj.followNoFollowLinks}}</div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-5 label">Check external links for 404?</div>
-                  <div class="ui-grid-col-7">{{obj.checkExternalLinksFor404}}</div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-5 label"></div>
-                  <div class="ui-grid-col-7"></div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-5 label">createdBy:</div>
-                  <div class="ui-grid-col-7">{{obj.createdBy?.username}}</div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-5 label">createdAt:</div>
-                  <div class="ui-grid-col-7">{{obj.createdAt | date:"y-MM-dd H:mm:ss"}}</div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-5 label">modifiedBy:</div>
-                  <div class="ui-grid-col-7">{{obj.modifiedBy?.username}}</div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-5 label">modifiedAt:</div>
-                  <div class="ui-grid-col-7">{{obj.modifiedAt | date:"y-MM-dd H:mm:ss"}}</div>
+        <!-- expanded row -->
+        <template let-obj pTemplate="rowexpansion">
+          <div class="ui-grid ui-grid-responsive ui-fluid">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-1" style="text-align:center">
+                <!--<i class="fa fa-search" style="cursor:pointer;float:left;margin-top:40px"></i>-->
+              </div>
+              <div class="ui-grid-col-11">
+                <div class="ui-grid ui-grid-responsive ui-grid-pad">
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-5 label">Max time limit for site download, hrs:</div>
+                    <div class="ui-grid-col-7">{{obj.maxTimeLimitForSiteDownload}}</div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-5 label">Max depth level limit for site download:</div>
+                    <div class="ui-grid-col-7">{{obj.maxDepthLevelLimitForSiteDownload}}</div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-5 label">Use User-Agent from robots.txt?</div>
+                    <div class="ui-grid-col-7">{{obj.useUserAgentFromRobotsTxt}}</div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-5 label">Follow 'nofollow' links?</div>
+                    <div class="ui-grid-col-7">{{obj.followNoFollowLinks}}</div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-5 label">Check external links for 404?</div>
+                    <div class="ui-grid-col-7">{{obj.checkExternalLinksFor404}}</div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-5 label"></div>
+                    <div class="ui-grid-col-7"></div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-5 label">createdBy:</div>
+                    <div class="ui-grid-col-7">{{obj.createdBy?.username}}</div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-5 label">createdAt:</div>
+                    <div class="ui-grid-col-7">{{obj.createdAt | date:"y-MM-dd H:mm:ss"}}</div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-5 label">modifiedBy:</div>
+                    <div class="ui-grid-col-7">{{obj.modifiedBy?.username}}</div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-5 label">modifiedAt:</div>
+                    <div class="ui-grid-col-7">{{obj.modifiedAt | date:"y-MM-dd H:mm:ss"}}</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </template>
-    </p-dataTable>
+        </template>
+      </p-dataTable>
 
-    <p-dialog [(visible)]="isDialogVisible" header="Edit site schedule for {{currentObj.site?.name}}" [responsive]="true" showEffect="fade" [modal]="true">
-      <app-siteschedule-detail [currentObj]="currentObj" (saved)="onSaved($event)"></app-siteschedule-detail>
-    </p-dialog>
+      <p-dialog [(visible)]="isDialogVisible" header="Edit site schedule for {{currentObj.site?.name}}" [responsive]="true" showEffect="fade" [modal]="true">
+        <app-siteschedule-detail [currentObj]="currentObj" (saved)="onSaved($event)"></app-siteschedule-detail>
+      </p-dialog>
+    </div>
   </div>
 </div>

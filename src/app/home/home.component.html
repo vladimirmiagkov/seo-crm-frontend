@@ -1,11 +1,11 @@
-<div class="container-fluid">
-  <div class="row rs-topmenu_padding" style="padding-bottom: 10px;width: 100%;position: fixed;z-index: 1;background-color: white;">
-    <div class="col-xl-4">
+<div class="container-fluid" style="min-width: 1020px;">
+  <div class="row rs-topmenu_padding" style="padding-bottom: 10px;width: 100%;min-width: 1020px;position: fixed;z-index: 1;background-color: white;">
+    <div class="col-sm-3">
       <button label="Add site" (click)="showDialogToAddNewSite()" icon="fa fa-plus" type="button" pButton></button>
       <p-tieredMenu #viewsettingsmenu [model]="viewSettingsMenu" [popup]="true"></p-tieredMenu>
-      <button label="Settings" (click)="viewsettingsmenu.toggle($event)" icon="fa fa-cog" type="button" pButton></button>
+      <button (click)="viewsettingsmenu.toggle($event)" icon="fa fa-cog" type="button" pButton></button>
     </div>
-    <div class="col-xl-4">
+    <div class="col-sm-5">
       <div style="width: 440px;font-size: 90%;">
         <p-paginator
             [first]="viewPager.first"
@@ -17,7 +17,7 @@
         ></p-paginator>
       </div>
     </div>
-    <div class="col-xl-4 rs-text-right">
+    <div class="col-sm-4 rs-text-right">
       From:
       <p-calendar [(ngModel)]="viewDateFrom" dateFormat="yy.mm.dd"></p-calendar>
       &nbsp;To:

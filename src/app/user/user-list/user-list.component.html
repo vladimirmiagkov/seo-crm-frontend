@@ -1,128 +1,130 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <h2>Users</h2>
+    <div class="col-sm-12">
+      <h2>Users</h2>
 
-    <button label="Add new user" (click)="showDialogToAdd()" style="margin-bottom: 10px;" icon="fa-user-plus" type="button" pButton></button>
+      <button label="Add new user" (click)="showDialogToAdd()" style="margin-bottom: 10px;" icon="fa-user-plus" type="button" pButton></button>
 
-    <p-dataTable
-        [value]="objs"
-        sortMode="multiple"
-        resizableColumns="true" columnResizeMode="expand"
-        [rows]="100" [paginator]="true" [pageLinks]="5"
-        expandableRows="true"
-        emptyMessage="loading..."
-    >
-      <header>Total users: {{objs?.length || 'loading...'}}</header>
+      <p-dataTable
+          [value]="objs"
+          sortMode="multiple"
+          resizableColumns="true" columnResizeMode="expand"
+          [rows]="100" [paginator]="true" [pageLinks]="5"
+          expandableRows="true"
+          emptyMessage="loading..."
+      >
+        <header>Total users: {{objs?.length || 'loading...'}}</header>
 
-      <p-column [style]="{'width':'40px'}" expander="true" styleClass="col-icon"></p-column>
-      <p-column [style]="{'width':'55px'}" field="id" header="id" [sortable]="true"></p-column>
-      <p-column [style]="{'width':'120px'}" field="username" header="username" [sortable]="true"></p-column>
-      <p-column [style]="{'width':'130px'}" field="email" header="email" [sortable]="true"></p-column>
-      <p-column [style]="{'width':'100px'}" field="enabled" header="enabled" [sortable]="true"></p-column>
-      <p-column [style]="{'width':'170px'}" field="lastLogin" header="lastLogin" [sortable]="true">
-        <template let-col let-obj="rowData" pTemplate="body">
-          <span>{{ obj[col.field] | date:"y-MM-dd H:mm:ss" }}</span>
-        </template>
-      </p-column>
-      <p-column [style]="{'width':'160px'}" field="roles" header="roles" [sortable]="true"></p-column>
+        <p-column [style]="{'width':'40px'}" expander="true" styleClass="col-icon"></p-column>
+        <p-column [style]="{'width':'55px'}" field="id" header="id" [sortable]="true"></p-column>
+        <p-column [style]="{'width':'120px'}" field="username" header="username" [sortable]="true"></p-column>
+        <p-column [style]="{'width':'130px'}" field="email" header="email" [sortable]="true"></p-column>
+        <p-column [style]="{'width':'100px'}" field="enabled" header="enabled" [sortable]="true"></p-column>
+        <p-column [style]="{'width':'170px'}" field="lastLogin" header="lastLogin" [sortable]="true">
+          <template let-col let-obj="rowData" pTemplate="body">
+            <span>{{ obj[col.field] | date:"y-MM-dd H:mm:ss" }}</span>
+          </template>
+        </p-column>
+        <p-column [style]="{'width':'160px'}" field="roles" header="roles" [sortable]="true"></p-column>
 
-      <!-- edit buttons -->
-      <p-column [style]="{'width':'95px'}" styleClass="col-button">
-        <template pTemplate="header"></template>
-        <template let-obj="rowData" pTemplate="body">
-          <button (click)="edit(obj.id)" icon="fa-pencil-square-o" type="button" pButton></button>
-          <button (click)="delete(obj.id)" icon="fa-close" class="ui-button-danger" type="button" pButton></button>
-        </template>
-      </p-column>
+        <!-- edit buttons -->
+        <p-column [style]="{'width':'95px'}" styleClass="col-button">
+          <template pTemplate="header"></template>
+          <template let-obj="rowData" pTemplate="body">
+            <button (click)="edit(obj.id)" icon="fa-pencil-square-o" type="button" pButton></button>
+            <button (click)="delete(obj.id)" icon="fa-close" class="ui-button-danger" type="button" pButton></button>
+          </template>
+        </p-column>
 
-      <!-- expanded row -->
-      <template let-obj pTemplate="rowexpansion">
-        <div class="ui-grid ui-grid-responsive ui-fluid">
-          <div class="ui-grid-row">
-            <div class="ui-grid-col-1" style="text-align:center">
-              <!--<i class="fa fa-search" style="cursor:pointer;float:left;margin-top:40px"></i>-->
-            </div>
-            <div class="ui-grid-col-11">
-              <div class="ui-grid ui-grid-responsive ui-grid-pad">
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2 label">createdBy:</div>
-                  <div class="ui-grid-col-10">{{obj.createdBy?.username}}</div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2 label">createdAt:</div>
-                  <div class="ui-grid-col-10">{{obj.createdAt | date:"y-MM-dd H:mm:ss"}}</div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2 label">modifiedBy:</div>
-                  <div class="ui-grid-col-10">{{obj.modifiedBy?.username}}</div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2 label">modifiedAt:</div>
-                  <div class="ui-grid-col-10">{{obj.modifiedAt | date:"y-MM-dd H:mm:ss"}}</div>
+        <!-- expanded row -->
+        <template let-obj pTemplate="rowexpansion">
+          <div class="ui-grid ui-grid-responsive ui-fluid">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-1" style="text-align:center">
+                <!--<i class="fa fa-search" style="cursor:pointer;float:left;margin-top:40px"></i>-->
+              </div>
+              <div class="ui-grid-col-11">
+                <div class="ui-grid ui-grid-responsive ui-grid-pad">
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-2 label">createdBy:</div>
+                    <div class="ui-grid-col-10">{{obj.createdBy?.username}}</div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-2 label">createdAt:</div>
+                    <div class="ui-grid-col-10">{{obj.createdAt | date:"y-MM-dd H:mm:ss"}}</div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-2 label">modifiedBy:</div>
+                    <div class="ui-grid-col-10">{{obj.modifiedBy?.username}}</div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-2 label">modifiedAt:</div>
+                    <div class="ui-grid-col-10">{{obj.modifiedAt | date:"y-MM-dd H:mm:ss"}}</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </template>
-    </p-dataTable>
+        </template>
+      </p-dataTable>
 
-    <p-dialog [(visible)]="isDialogVisible" header="{{ isNewObj?'Add user':'Edit user' }}" [responsive]="true" showEffect="fade" [modal]="true">
-      <form name="userform" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
-        <div *ngIf="currentObj" class="ui-grid ui-grid-responsive ui-fluid">
-          <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label>Username*</label></div>
-            <div class="ui-grid-col-8">
-              <input [(ngModel)]="currentObj.username" name="username" pInputText required/>
+      <p-dialog [(visible)]="isDialogVisible" header="{{ isNewObj?'Add user':'Edit user' }}" [responsive]="true" showEffect="fade" [modal]="true">
+        <form name="userform" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+          <div *ngIf="currentObj" class="ui-grid ui-grid-responsive ui-fluid">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4"><label>Username*</label></div>
+              <div class="ui-grid-col-8">
+                <input [(ngModel)]="currentObj.username" name="username" pInputText required/>
+              </div>
             </div>
-          </div>
-          <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label>Password*</label></div>
-            <div class="ui-grid-col-8">
-              <input [(ngModel)]="currentObj.password" name="password" pInputText required/>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4"><label>Password*</label></div>
+              <div class="ui-grid-col-8">
+                <input [(ngModel)]="currentObj.password" name="password" pInputText required/>
+              </div>
             </div>
-          </div>
-          <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label>Email*</label></div>
-            <div class="ui-grid-col-8">
-              <input [(ngModel)]="currentObj.email" name="email" pInputText required/>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4"><label>Email*</label></div>
+              <div class="ui-grid-col-8">
+                <input [(ngModel)]="currentObj.email" name="email" pInputText required/>
+              </div>
             </div>
-          </div>
-          <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label>Enabled*</label></div>
-            <div class="ui-grid-col-8">
-              <p-inputSwitch [(ngModel)]="currentObj.enabled" name="enabled" onLabel="Yes" offLabel="No"></p-inputSwitch>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4"><label>Enabled*</label></div>
+              <div class="ui-grid-col-8">
+                <p-inputSwitch [(ngModel)]="currentObj.enabled" name="enabled" onLabel="Yes" offLabel="No"></p-inputSwitch>
+              </div>
             </div>
-          </div>
-          <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label>Roles*</label></div>
-            <div class="ui-grid-col-8">
-              <div class="ui-g" style="width:200px;">
-                <p-radioButton name="roles" value="ROLE_CLIENT" label="ROLE_CLIENT" [(ngModel)]="currentObj.roles"></p-radioButton>
-                <p-radioButton name="roles" value="ROLE_SEO" label="ROLE_SEO" [(ngModel)]="currentObj.roles"></p-radioButton>
-                <p-radioButton name="roles" value="ROLE_ADMIN" label="ROLE_ADMIN" [(ngModel)]="currentObj.roles"></p-radioButton>
-                <p-radioButton name="roles" value="ROLE_SUPER_ADMIN" label="ROLE_SUPER_ADMIN" [(ngModel)]="currentObj.roles"></p-radioButton>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4"><label>Roles*</label></div>
+              <div class="ui-grid-col-8">
+                <div class="ui-g" style="width:200px;">
+                  <p-radioButton name="roles" value="ROLE_CLIENT" label="ROLE_CLIENT" [(ngModel)]="currentObj.roles"></p-radioButton>
+                  <p-radioButton name="roles" value="ROLE_SEO" label="ROLE_SEO" [(ngModel)]="currentObj.roles"></p-radioButton>
+                  <p-radioButton name="roles" value="ROLE_ADMIN" label="ROLE_ADMIN" [(ngModel)]="currentObj.roles"></p-radioButton>
+                  <p-radioButton name="roles" value="ROLE_SUPER_ADMIN" label="ROLE_SUPER_ADMIN" [(ngModel)]="currentObj.roles"></p-radioButton>
+                </div>
+              </div>
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-12">
+                <div *ngIf="errors" class="alert alert-danger" role="alert">{{ errors }}<br>{{ errors?._body }}</div>
               </div>
             </div>
           </div>
-          <div class="ui-grid-row">
-            <div class="ui-grid-col-12">
-              <div *ngIf="errors" class="alert alert-danger" role="alert">{{ errors }}<br>{{ errors?._body }}</div>
+          <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+              <div *ngIf="isLoading" class="fa-spinner--wrapper" style="top: 14px;left: -5px;"><i class="fa fa-spinner fa-spin"></i></div>
+              <template [ngIf]="!isNewObj">
+                <button (click)="save()" [disabled]="isLoading" label="Apply" type="button" pButton icon="fa-check"></button>
+              </template>
+              <template [ngIf]="isNewObj">
+                <button (click)="save()" [disabled]="isLoading" label="Add user" type="button" pButton icon="fa-plus"></button>
+              </template>
             </div>
-          </div>
-        </div>
-        <footer>
-          <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-            <div *ngIf="isLoading" class="fa-spinner--wrapper" style="top: 14px;left: -5px;"><i class="fa fa-spinner fa-spin"></i></div>
-            <template [ngIf]="!isNewObj">
-              <button (click)="save()" [disabled]="isLoading" label="Apply" type="button" pButton icon="fa-check"></button>
-            </template>
-            <template [ngIf]="isNewObj">
-              <button (click)="save()" [disabled]="isLoading" label="Add user" type="button" pButton icon="fa-plus"></button>
-            </template>
-          </div>
-        </footer>
-      </form>
-    </p-dialog>
+          </footer>
+        </form>
+      </p-dialog>
+    </div>
   </div>
 </div>

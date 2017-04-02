@@ -1,26 +1,26 @@
-<div class="container-fluid" style="/*background-color: aquamarine;*/">
+<div class="container-fluid" style="min-width: 1020px;">
   <div class="row">
-    <div class="col-xl-2">
+    <div class="col-sm-2">
       pictures
     </div>
-    <div class="col-xl-8">
+    <div class="col-sm-8">
       Site name: {{ site.name }}<br>
       Site namePuny: {{ site.namePuny }}<br>
       Site active: {{ site.active }}<br>
     </div>
-    <div class="col-xl-2">
+    <div class="col-sm-2">
       Achievements
     </div>
   </div>
   <div class="row">
-    <div class="col-xl-12">
+    <div class="col-sm-12">
       <button [label]="(isDataBlockVisible ? 'Hide' : 'Show') + ' keywords and pages'"
               (click)="toggleDataBlockVisible()" style="width: 100%;padding: 0;" icon="fa " type="button" pButton></button>
     </div>
   </div>
   <div *ngIf="isDataBlockVisible">
     <div class="row" *ngIf="filter.isVisible">
-      <div class="col-xl-8">
+      <div class="col-sm-12">
         <div style="margin-top: 15px;padding: 10px;background-color: #f4f3f4;border-radius: 0.2em;">
           <table>
             <thead>
@@ -48,13 +48,13 @@
       </div>
     </div>
     <div class="row" style="margin-top: 15px;">
-      <div class="col-xl-3">
+      <div class="col-sm-3">
         <div *ngIf="isDataBlockLoading" class="fa-spinner--wrapper" style="right: 1px;position: absolute;"><i class="fa fa-spinner fa-spin"></i></div>
         <button title="Reload this site dataBlock" (click)="loadDataBlock()" icon="fa fa-refresh" type="button" pButton></button>
         <button title="Show / Hide Filter" (click)="toggleFilterVisible()" icon="fa fa-filter" type="button" pButton></button>
         debugqueries:{{debugqueries}}
       </div>
-      <div class="col-xl-9">
+      <div class="col-sm-9">
         <div style="width: 600px;font-size: 90%;">
           <p-paginator
               [first]="dataBlockPager.first"
@@ -68,7 +68,7 @@
       </div>
     </div>
     <div class="row" style="padding-top: 10px;">
-      <div class="col-xl-12" style="/*background-color: blanchedalmond;*/">
+      <div class="col-sm-12" style="/*background-color: blanchedalmond;*/">
         <div>
           <!-- dataBlock: header row -->
           <div class="db-row db-header">
