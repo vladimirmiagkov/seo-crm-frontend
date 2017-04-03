@@ -19,18 +19,16 @@ export class SiteComponent implements OnInit {
 
   public debugqueries; //TODO: remove debug
 
+  public siteSeoStrategy: number; // 0 = pages contains keywords; 1 = keywords contains pages
+
   public filter = {
-    isVisible: true,
+    isVisible: true, // Is Filter block visible?
+    isApplied: false, // Is Filter used for filtering dataBlock?
     defaults: {
-      sortDirections: [{label: 'None', value: ''}, {label: 'ASC', value: 'asc'}, {label: 'DESC', value: 'desc'}],
-      searchEngines: [{label: 'Google', value: '0'}, {label: 'Yandex', value: '1'}], // All available Search Engines
+      sortDirections: [{label: 'None', value: ''}, {label: 'ASC', value: 'ASC'}, {label: 'DESC', value: 'DESC'}],
+      searchEngines: [{label: 'Google', value: '0'}, {label: 'Yandex', value: '1'}],
     },
-    page: {
-      searchEngine: {
-        value: [],
-        sort: ''
-      }
-    }
+    filters: [], // List of all filters
   };
 
   public dataBlockPager: any;
@@ -42,7 +40,7 @@ export class SiteComponent implements OnInit {
   public isDataBlockVisible: boolean = false;
   public readonly DATABLOCK_VISIBLE_IDENTIFIER: string = 'siteview-datablockvisible-';
 
-  public siteSeoStrategy: number; // 0 = pages contains keywords; 1 = keywords contains pages
+  public dataBlockRowHeight = 18;
   //public enumerateDates: string[] = []; // Array with days enumeration(from viewDateFrom to viewDateTo), like ['08', '07', '06', ...]
 
   constructor(private siteDataBlockService: SiteDataBlockService,
@@ -50,6 +48,7 @@ export class SiteComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initFilter();
     this.initViewPager();
     this.initDataBlock();
     //this.generateEnumerateDates();
@@ -62,13 +61,14 @@ export class SiteComponent implements OnInit {
       this.dataBlockPager.page * this.dataBlockPager.rows,
       this.dataBlockPager.rows,
       this.viewDateFrom,
-      this.viewDateTo
+      this.viewDateTo,
+      JSON.stringify(this.filter)
     ).subscribe(
       result => {
         console.log(result);
 
         // Set data
-        this.dataBlock = result.result;
+        this.dataBlock = result.result.result;
         this.siteSeoStrategy = +result.siteSeoStrategyKeywordPage;
         this.dataBlockPager.totalRecords = result.result.totalRecords;
         this.debugqueries = result['z_totalQueries'];
@@ -86,18 +86,28 @@ export class SiteComponent implements OnInit {
   }
 
 
-  // Fired up on pager change
-  public onPaginate(event) {
-    //console.log('onPaginate');
-    //console.dir(event);
-    this.dataBlockPager.first = event.first;
-    this.dataBlockPager.rows = event.rows;
-    this.dataBlockPager.page = event.page;
-    this.dataBlockPager.pageCount = event.pageCount;
-
-    this.savePager();
-    this.loadDataBlock();
+  private initDataBlock() {
+    let isVisible = localStorage.getItem(this.DATABLOCK_VISIBLE_IDENTIFIER + this.site.id);
+    //console.log('initDataBlock DATABLOCK_VISIBLE_IDENTIFIER = ' + isVisible);
+    if (null !== isVisible) {
+      this.isDataBlockVisible = (isVisible.toLowerCase() === 'true'); // decode existing value
+    } else {
+      this.isDataBlockVisible = true;
+    }
+    if (this.isDataBlockVisible) {
+      this.loadDataBlock();
+    }
   }
+
+  public toggleDataBlockVisible() {
+    this.isDataBlockVisible = !this.isDataBlockVisible;
+    localStorage.setItem(this.DATABLOCK_VISIBLE_IDENTIFIER + this.site.id, String(this.isDataBlockVisible));
+    //console.log('toggleDataBlockVisible this.isDataBlockVisible = ' + this.isDataBlockVisible);
+    if (this.isDataBlockVisible) {
+      this.loadDataBlock();
+    }
+  }
+
 
   private initViewPager() {
     this.dataBlockPager = {
@@ -125,32 +135,17 @@ export class SiteComponent implements OnInit {
     }
   }
 
-  private initDataBlock() {
-    let isVisible = localStorage.getItem(this.DATABLOCK_VISIBLE_IDENTIFIER + this.site.id);
-    //console.log('initDataBlock DATABLOCK_VISIBLE_IDENTIFIER = ' + isVisible);
-    if (null !== isVisible) {
-      this.isDataBlockVisible = (isVisible.toLowerCase() === 'true'); // decode existing value
-    } else {
-      this.isDataBlockVisible = true;
-    }
-    if (this.isDataBlockVisible) {
-      this.loadDataBlock();
-    }
-  }
+  // Fired up on pager change
+  public onPaginate(event) {
+    //console.log('onPaginate');
+    //console.dir(event);
+    this.dataBlockPager.first = event.first;
+    this.dataBlockPager.rows = event.rows;
+    this.dataBlockPager.page = event.page;
+    this.dataBlockPager.pageCount = event.pageCount;
 
-  public toggleDataBlockVisible() {
-    this.isDataBlockVisible = !this.isDataBlockVisible;
-    localStorage.setItem(this.DATABLOCK_VISIBLE_IDENTIFIER + this.site.id, String(this.isDataBlockVisible));
-    //console.log('toggleDataBlockVisible this.isDataBlockVisible = ' + this.isDataBlockVisible);
-    if (this.isDataBlockVisible) {
-      this.loadDataBlock();
-    }
-  }
-
-  public toggleFilterVisible() {
-    this.filter.isVisible = !this.filter.isVisible;
-    //localStorage.setItem(this.DATABLOCK_VISIBLE_IDENTIFIER + this.site.id, String(this.isDataBlockVisible));
-    //console.log('toggleDataBlockVisible this.isDataBlockVisible = ' + this.isDataBlockVisible);
+    this.savePager();
+    this.loadDataBlock();
   }
 
   private savePager() {
@@ -158,6 +153,76 @@ export class SiteComponent implements OnInit {
     localStorage.setItem(this.DATABLOCK_PAGER_IDENTIFIER + this.site.id + '-page', this.dataBlockPager.page);
     localStorage.setItem(this.DATABLOCK_PAGER_IDENTIFIER + this.site.id + '-totalRecords', this.dataBlockPager.totalRecords);
   }
+
+
+  private initFilter() {
+    this.filter.filters = [
+      {
+        name: 'pageSearchEngine',
+        title: 'Search engine (page)',
+        type: 'multiSelect',
+        valuesAvailable: this.filter.defaults.searchEngines,
+        values: [],
+        sortDirection: '',
+      },
+      {
+        name: 'keywordSearchEngine',
+        title: 'Search engine (keyword)',
+        type: 'multiSelect',
+        valuesAvailable: this.filter.defaults.searchEngines,
+        values: [],
+        sortDirection: '',
+      },
+      {
+        name: 'pageName',
+        title: 'Name (page)',
+        type: 'text',
+        values: '',
+        sortDirection: 'ASC',
+      },
+      {
+        name: 'keywordName',
+        title: 'Name (keyword)',
+        type: 'text',
+        values: '',
+        sortDirection: '',
+      },
+      {
+        name: 'pageTags',
+        title: 'Tags (page)',
+        type: 'multiSelect',
+        valuesAvailable: [{label: 'plastic', value: '0'}, {label: 'fan', value: '1'}],
+        values: [],
+        sortDirection: '',
+      },
+      {
+        name: 'keywordFromLocation',
+        title: 'From location (keyword)',
+        type: 'multiSelect',
+        valuesAvailable: [{label: 'Denver', value: '0'}, {label: 'NY', value: '1'}],
+        values: [],
+        sortDirection: '',
+      },
+      {
+        name: 'keywordReq',
+        title: 'Req (request) (keyword)',
+        type: 'range',
+        valueMin: [],
+        valueMax: [],
+        sortDirection: '',
+      },
+    ];
+  }
+
+  public toggleFilterVisible() {
+    this.filter.isVisible = !this.filter.isVisible;
+  }
+
+  public applyFilter(enable: boolean) {
+    this.filter.isApplied = enable;
+    this.loadDataBlock();
+  }
+
 
   // private generateEnumerateDates() {
   //   if (!this.viewDateFrom) {

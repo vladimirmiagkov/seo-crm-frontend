@@ -14,15 +14,22 @@ export class SiteDataBlockService {
    * @param limit Pager: count items to fetch
    * @param dateFrom Start date for data
    * @param dateTo Stop date for data
+   * @param filter Filter data
    * @returns {Observable<any>}
    */
-  public get(siteId: any, offset: any = '', limit: any = '', dateFrom: any = '', dateTo: any = '',): Observable<any> {
+  public get(siteId: any,
+             offset: any = '',
+             limit: any = '',
+             dateFrom: any = '',
+             dateTo: any = '',
+             filter: any = '',): Observable<any> {
     let path: string = '/sitedatablock/' + siteId
       + '?'
       + '&offset=' + offset
       + '&limit=' + limit
       + '&datefrom=' + (dateFrom !== '' ? parseInt((new Date(dateFrom).getTime() / 1000).toFixed(0)) : '')
-      + '&dateto=' + (dateTo !== '' ? parseInt((new Date(dateTo).getTime() / 1000).toFixed(0)) : '');
+      + '&dateto=' + (dateTo !== '' ? parseInt((new Date(dateTo).getTime() / 1000).toFixed(0)) : '')
+      + '&filter=' + encodeURI(filter);
     //console.log(path);
 
     // return new Observable((subscriber) => subscriber.next(

@@ -1,22 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
-
 .rs-topmenu_padding {
     padding-top: 10px;
 }
-
 .rs-text-right {
     text-align: right;
 }
-
+.rs-smallbutton .ui-button-text {
+    padding: 0 0.6em;
+}
 p-dialog .ui-grid .ui-grid-row {
     padding: 0 0 10px 0;
 }
-
 label {
     display: inline-block;
     margin-bottom: 0;
 }
-
 .fa-spinner--wrapper {
     font-size: 24px;
     color: #0275d8;
@@ -25,24 +23,27 @@ label {
     top: 5px;
     line-height: 1px;
 }
-
 p-growl {
     z-index: 10000;
     position: relative;
 }
-
 .ui-calendar .ui-inputtext {
     width: 110px !important;
     font-size: 98%;
 }
-
-body .ui-multiselect {
+/* datablock filter */
+body .rs-datablockfilter-multiselect .ui-multiselect {
     padding: 0 0;
     height: 37px;
     top: 1px;
     width: 250px;
 }
-
-body .ui-multiselect .ui-multiselect-trigger .fa {
+body .rs-datablockfilter-multiselect .ui-multiselect .ui-multiselect-trigger .fa {
     margin-top: .7em;
+}
+.rs-datablockfilter-text {
+    width: 250px;
+}
+.rs-datablockfilter-range {
+    width: 118px;
 }
