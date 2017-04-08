@@ -1,16 +1,17 @@
-import {Component, OnInit, Input, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, Input, ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
 
 import {SelectItem} from 'primeng/primeng';
 
 import {UtilService} from 'app/shared/util.service';
 import {Site} from './site.model';
-import {SiteDataBlockService} from './sitesDataBlock.service';
+import {SiteDataBlockService} from './siteDataBlock.service';
 
 @Component({
   selector: 'app-site',
   templateUrl: './site.component.html',
   styleUrls: ['./site.component.css'],
-  providers: [SiteDataBlockService]
+  providers: [SiteDataBlockService],
+  //encapsulation: ViewEncapsulation.None
 })
 export class SiteComponent implements OnInit {
   @Input() public site: Site;

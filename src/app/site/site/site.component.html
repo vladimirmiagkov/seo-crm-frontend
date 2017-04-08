@@ -19,6 +19,9 @@
     </div>
   </div>
   <div *ngIf="isDataBlockVisible">
+
+
+    <!--dataBlock filter-->
     <div class="row" *ngIf="filter.isVisible">
       <div class="col-sm-12">
         <div style="padding: 10px;background-color: #f4f3f4;border-radius: 0.2em;">
@@ -58,6 +61,9 @@
         </div>
       </div>
     </div>
+
+
+    <!--dataBlock pager-->
     <div class="row" style="margin-top: 15px;">
       <div class="col-sm-3">
         <div *ngIf="isDataBlockLoading" class="fa-spinner--wrapper" style="right: 1px;position: absolute;"><i class="fa fa-spinner fa-spin"></i></div>
@@ -78,6 +84,9 @@
         </div>
       </div>
     </div>
+
+
+    <!--dataBlock data-->
     <div class="row" style="padding-top: 10px;">
       <div class="col-sm-12">
         <div style="background-color: beige">
@@ -107,5 +116,7 @@
         </div>
       </div>
     </div>
+
+
   </div>
 </div>

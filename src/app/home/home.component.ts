@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MenuItem} from 'primeng/primeng';
 
 import {Site} from '../site/site/site.model';
-import {SiteService} from '../site/site/sites.service';
+import {SiteService} from '../site/site/site.service';
 import {SiteComponent} from '../site/site/site.component';
 
 @Component({

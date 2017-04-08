@@ -32,13 +32,13 @@ p-growl {
     font-size: 98%;
 }
 /* datablock filter */
-body .rs-datablockfilter-multiselect .ui-multiselect {
+.rs-datablockfilter-multiselect .ui-multiselect {
     padding: 0 0;
     height: 37px;
     top: 1px;
     width: 250px;
 }
-body .rs-datablockfilter-multiselect .ui-multiselect .ui-multiselect-trigger .fa {
+.rs-datablockfilter-multiselect .ui-multiselect .ui-multiselect-trigger .fa {
     margin-top: .7em;
 }
 .rs-datablockfilter-text {
