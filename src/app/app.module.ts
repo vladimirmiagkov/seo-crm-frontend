@@ -42,6 +42,7 @@ import {UserListComponent} from './user/user-list/user-list.component';
 import {SitescheduleComponent} from './site/siteschedule/siteschedule.component';
 import {SitescheduleDetailComponent} from './site/siteschedule/siteschedule-detail/siteschedule-detail.component';
 import {SiteComponent} from './site/site/site.component';
+import {DataBlockComponent} from './site/datablock/datablock.component';
 
 @NgModule({
   imports: [ //Specifies a list of modules whose exported directives/pipes should be available to templates in this module. This can also contain ModuleWithProviders.
@@ -92,6 +93,7 @@ import {SiteComponent} from './site/site/site.component';
     SitescheduleComponent,
     SitescheduleDetailComponent,
     SiteComponent,
+    DataBlockComponent,
   ],
   providers: [ //Defines the set of injectable objects that are available in the injector of this module. //Global services
     //AUTH_PROVIDERS,
