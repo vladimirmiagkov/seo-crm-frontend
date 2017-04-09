@@ -66,7 +66,7 @@
 <!--dataBlock data-->
 <div class="row" style="padding-top: 10px;">
   <div class="col-sm-12">
-    <div style="background-color: beige">
+    <div style="background-color: beige" [style.width.px]="600 + dataBlockHeader?.length * 20">
       <!-- dataBlock: header row -->
       <div class="db-row db-header">
         <div class="db-cell db-cell-from">From</div>
@@ -74,14 +74,24 @@
         <div class="db-cell db-cell-req">Req</div>
         <div class="db-cell db-cell-se">SE</div>
         <div class="db-cell db-cell-name">Name</div>
+
         <div class="db-cell db-cell-buttons">btns</div>
-        <div class="db-cell db-cell-zero">---</div>
-        <!--<div class="db-cell db-celldata" *ngFor="let enumerateDate of enumerateDates">{{ enumerateDate }}</div>-->
+
+        <div class="db-cell db-cell-zero">zero</div>
+
+        <div class="db-cell db-celldata" *ngFor="let cell of dataBlockHeader">
+          {{ cell.shortdate }}
+        </div>
       </div>
 
       <!-- dataBlock: row -->
       <div *ngFor="let row of dataBlock" class="db-row" [style.height.px]="dataBlockRowHeight + (dataBlockRowHeight * ((row.searchEngine?.length>0?row.searchEngine?.length:1)-1))">
-        <app-datablock-row [row]="row"></app-datablock-row>
+        <app-datablock-row
+            *ngFor="let searchEngine of row.searchEngine; let i = index;"
+            [row]="row"
+            [index]="i"
+            [searchEngine]="searchEngine"
+        ></app-datablock-row>
       </div>
     </div>
   </div>

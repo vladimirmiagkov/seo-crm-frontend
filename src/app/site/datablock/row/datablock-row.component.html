@@ -1,8 +1,17 @@
-<div class="db-cell db-cell-from"></div>
+<div class="db-cell db-clr db-cell-from">{{ row.from }}</div>
 <div class="db-cell db-cell-tags"></div>
 <div class="db-cell db-cell-req"></div>
-<div class="db-cell db-cell-se">{{ row.searchEngine ? row.searchEngine[0]?.shortName : '' }}</div>
-<div class="db-cell db-cell-name" [style.padding-left.px]="row._dataType==0 ? 25 : 0">{{ row.name }}</div>
+<div class="db-cell db-cell-se">{{ searchEngine.shortName ? searchEngine.shortName : '-' }}</div>
+<div class="db-cell db-cell-name" [style.padding-left.px]="row._entityType=='keyword' ? 25 : 0">
+  {{ index==0 ? row.name : '' }}
+</div>
+
 <div class="db-cell db-cell-buttons"></div>
-<div class="db-cell db-cell-zero"></div>
-<!--<div class="db-cell db-celldata" *ngFor="let enumerateDate of enumerateDates">&nbsp;</div>-->
+
+<div class="db-cell db-cell-zero">{{ searchEngine._cellZero?.pos }}</div>
+
+<template ngFor let-cell [ngForOf]="searchEngine._cell">
+  <div class="db-cell db-celldata" title="url={{ cell.pos?.url }}&#013;created_at={{ cell.pos?.created_at }}">
+    {{ cell.pos?.position }}
+  </div>
+</template>

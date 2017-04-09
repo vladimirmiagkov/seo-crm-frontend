@@ -32,6 +32,7 @@ export class DataBlockComponent implements OnInit {
   public readonly pagerIdentifier: string = 'siteview-datablockpager-';
 
   public dataBlock;
+  public dataBlockHeader;
   public dataBlockIsLoading: boolean = false;
 
   public dataBlockRowHeight = 18;
@@ -62,6 +63,7 @@ export class DataBlockComponent implements OnInit {
 
 
         this.dataBlock = result.result.result;
+        this.dataBlockHeader = result.result.header;
         this.pager.totalRecords = result.result.totalRecords;
         this.debugqueries = result['z_totalQueries'];
 

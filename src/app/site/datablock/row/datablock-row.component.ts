@@ -12,10 +12,16 @@ export class DataBlockRowComponent implements OnInit {
   //@Input() public viewDateFrom: Date;
   //@Input() public viewDateTo: Date;
   @Input() public row: any;
+  @Input() public searchEngine: any;
+  @Input() public index: any; // searchEngine sequential number
 
   constructor() {
   }
 
   ngOnInit() {
+    console.log('-------------------------------------');
+    console.log(this.row);
+    console.log(this.searchEngine);
+    // console.log(this.index);
   }
 }
