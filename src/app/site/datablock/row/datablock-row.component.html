@@ -1,0 +1,8 @@
+<div class="db-cell db-cell-from"></div>
+<div class="db-cell db-cell-tags"></div>
+<div class="db-cell db-cell-req"></div>
+<div class="db-cell db-cell-se">{{ row.searchEngine ? row.searchEngine[0]?.shortName : '' }}</div>
+<div class="db-cell db-cell-name" [style.padding-left.px]="row._dataType==0 ? 25 : 0">{{ row.name }}</div>
+<div class="db-cell db-cell-buttons"></div>
+<div class="db-cell db-cell-zero"></div>
+<!--<div class="db-cell db-celldata" *ngFor="let enumerateDate of enumerateDates">&nbsp;</div>-->

@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, Input, ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
 
 import {Site} from '../site/site.model';
 import {SiteDataBlockService} from '../site/siteDataBlock.service';
@@ -7,7 +7,8 @@ import {SiteDataBlockService} from '../site/siteDataBlock.service';
   selector: 'app-datablock',
   templateUrl: './datablock.component.html',
   styleUrls: ['./datablock.component.css'],
-  providers: [SiteDataBlockService]
+  providers: [SiteDataBlockService],
+  encapsulation: ViewEncapsulation.None,
 })
 export class DataBlockComponent implements OnInit {
   // dataBlock - Block with keywords, pages...

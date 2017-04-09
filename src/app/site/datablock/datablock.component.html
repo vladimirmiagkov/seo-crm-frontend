@@ -80,15 +80,8 @@
       </div>
 
       <!-- dataBlock: row -->
-      <div *ngFor="let obj of dataBlock" class="db-row" [style.height.px]="dataBlockRowHeight + (dataBlockRowHeight * ((obj.searchEngine?.length>0?obj.searchEngine?.length:1)-1))">
-        <div class="db-cell db-cell-from"></div>
-        <div class="db-cell db-cell-tags"></div>
-        <div class="db-cell db-cell-req"></div>
-        <div class="db-cell db-cell-se">{{ obj.searchEngine ? obj.searchEngine[0]?.shortName : '' }}</div>
-        <div class="db-cell db-cell-name" [style.padding-left.px]="obj._dataType==0 ? 25 : 0">{{ obj.name }}</div>
-        <div class="db-cell db-cell-buttons"></div>
-        <div class="db-cell db-cell-zero"></div>
-        <!--<div class="db-cell db-celldata" *ngFor="let enumerateDate of enumerateDates">&nbsp;</div>-->
+      <div *ngFor="let row of dataBlock" class="db-row" [style.height.px]="dataBlockRowHeight + (dataBlockRowHeight * ((row.searchEngine?.length>0?row.searchEngine?.length:1)-1))">
+        <app-datablock-row [row]="row"></app-datablock-row>
       </div>
     </div>
   </div>
