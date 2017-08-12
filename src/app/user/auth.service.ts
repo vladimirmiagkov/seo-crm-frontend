@@ -4,14 +4,19 @@ import {Observable} from 'rxjs';
 import 'rxjs/add/operator/map'
 
 import {tokenNotExpired} from 'angular2-jwt';
+
 //import {JwtHelper} from 'angular2-jwt';
 
 @Injectable()
 export class AuthService {
+  static CURRENT_USER_JWT_IDENTIFIER: string = 'currentUser';
+  //static CURRENT_USER_TOKEN_IDENTIFIER: string = 'id_token';
+  static CURRENT_USER_TOKEN_IDENTIFIER: string = 'token';
+
   public token: string;
 
   public constructor(private http: Http) {
-    this.token = localStorage.getItem('id_token');
+    this.token = localStorage.getItem(AuthService.CURRENT_USER_TOKEN_IDENTIFIER);
   }
 
   public login(username: string, password: string): Observable<boolean> {
@@ -35,13 +40,15 @@ export class AuthService {
 
           // store username and jwt token in local storage to keep user logged in between page refreshes
           //localStorage.setItem('currentUser', JSON.stringify({username: username, token: token}));
-          localStorage.setItem('currentUser', JSON.stringify({username: username}));
-          localStorage.setItem('id_token', token);
+          localStorage.setItem(AuthService.CURRENT_USER_JWT_IDENTIFIER, JSON.stringify({username: username}));
+          localStorage.setItem(AuthService.CURRENT_USER_TOKEN_IDENTIFIER, token);
 
           // return true to indicate successful login
+          //console.log('successful login');
           return true;
         } else {
           // return false to indicate failed login
+          console.log('%c failed login', 'color:red;');
           return false;
         }
       } else {
@@ -54,8 +61,8 @@ export class AuthService {
   public logout(): void {
     // clear token remove user from local storage to log user out
     this.token = null;
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('id_token');
+    localStorage.removeItem(AuthService.CURRENT_USER_JWT_IDENTIFIER);
+    localStorage.removeItem(AuthService.CURRENT_USER_TOKEN_IDENTIFIER);
   }
 
   public isAuthenticated() {

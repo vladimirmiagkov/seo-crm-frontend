@@ -19,11 +19,11 @@
 
             <input *ngIf="localfilter.type == 'text'" class="rs-datablockfilter-text" [(ngModel)]="localfilter.values" type="text" pInputText/>
 
-            <template [ngIf]="localfilter.type == 'range'">
+            <ng-template [ngIf]="localfilter.type == 'range'">
               <input class="rs-datablockfilter-range" [(ngModel)]="localfilter.valueMin" type="text" pInputText/>
               -
               <input class="rs-datablockfilter-range" [(ngModel)]="localfilter.valueMax" type="text" pInputText/>
-            </template>
+            </ng-template>
           </td>
           <td>
             <p-selectButton [options]="filter.defaults.sortDirections" [(ngModel)]="localfilter.sortDirection"></p-selectButton>
@@ -66,7 +66,7 @@
 <!--dataBlock data-->
 <div class="row" style="padding-top: 10px;">
   <div class="col-sm-12">
-    <div style="background-color: beige" [style.width.px]="600 + dataBlockHeader?.length * 20">
+    <div style="background-color: beige" [style.width.px]="590 + dataBlockHeader?.length * 20">
       <!-- dataBlock: header row -->
       <div class="db-row db-header">
         <div class="db-cell db-cell-from">From</div>
@@ -85,9 +85,9 @@
       </div>
 
       <!-- dataBlock: row -->
-      <div *ngFor="let row of dataBlock" class="db-row" [style.height.px]="dataBlockRowHeight + (dataBlockRowHeight * ((row.searchEngine?.length>0?row.searchEngine?.length:1)-1))">
+      <div *ngFor="let row of dataBlock" class="db-row" [style.height.px]="dataBlockRowHeight + (dataBlockRowHeight * ((row.searchEngines?.length>0?row.searchEngines?.length:1)-1))">
         <app-datablock-row
-            *ngFor="let searchEngine of row.searchEngine; let i = index;"
+            *ngFor="let searchEngine of row.searchEngines; let i = index;"
             [row]="row"
             [index]="i"
             [searchEngine]="searchEngine"

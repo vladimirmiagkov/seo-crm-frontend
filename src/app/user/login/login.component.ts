@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
         (result) => {
           //console.dir(result);
           if (result === true) {
+            //console.log('navigate to "/"');
             this.router.navigate(['/']);
           } else {
             this.error = 'Username or password is incorrect';
@@ -37,7 +38,7 @@ export class LoginComponent implements OnInit {
           }
         },
         (err) => {
-          //console.log(err)
+          //console.log(err);
           this.error = String(err);
           this.loading = false;
         });

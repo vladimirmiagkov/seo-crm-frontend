@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild, ChangeDetectorRef} from '@angular/core';
 
-import {UtilService} from 'app/shared/util.service';
+import {UtilService} from '../../shared/util.service';
 import {SiteSchedule} from './siteschedule.model';
 import {SiteScheduleService} from './siteschedule.service';
 import {SitescheduleDetailComponent} from './siteschedule-detail/siteschedule-detail.component';
-import {NotificationService} from 'app/shared/notification.service';
+import {NotificationService} from '../../shared/notification.service';
 
 @Component({
   selector: 'app-siteschedule',

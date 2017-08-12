@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
-import {ApiService} from 'app/shared/api.service';
+import {ApiService} from '../../shared/api.service';
 import {SiteSchedule} from './siteschedule.model';
 
 @Injectable()

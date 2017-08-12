@@ -10,8 +10,8 @@
 
 <div class="db-cell db-cell-zero">{{ searchEngine._cellZero?.pos }}</div>
 
-<template ngFor let-cell [ngForOf]="searchEngine._cell">
+<ng-template ngFor let-cell [ngForOf]="searchEngine._cell">
   <div class="db-cell db-celldata" title="url={{ cell.pos?.url }}&#013;created_at={{ cell.pos?.created_at }}">
     {{ cell.pos?.position }}
   </div>
-</template>
+</ng-template>

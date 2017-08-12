@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 
-import {UtilService} from 'app/shared/util.service';
+import {UtilService} from '../../shared/util.service';
 import {UserService} from '../user.service';
 import {User} from '../user.model';
-import {NotificationService} from 'app/shared/notification.service';
+import {NotificationService} from '../../shared/notification.service';
 
 @Component({
   selector: 'app-user-list',

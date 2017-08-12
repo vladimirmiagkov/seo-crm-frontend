@@ -16,9 +16,9 @@
         <p-column [style]="{'width':'40px'}" expander="true" styleClass="col-icon"></p-column>
         <p-column [style]="{'width':'55px'}" field="id" header="id" [sortable]="true"></p-column>
         <p-column [style]="{'width':'60px'}" header="on" [sortable]="true">
-          <template let-obj="rowData" pTemplate="body">
+          <ng-template let-obj="rowData" pTemplate="body">
             {{obj.active ? 'on' : 'off'}}
-          </template>
+          </ng-template>
         </p-column>
         <p-column field="site.name" header="site name" [sortable]="true"></p-column>
         <p-column field="intervalBetweenSiteDownload" header="Interval btw site dwn, hrs" [sortable]="true"></p-column>
@@ -26,14 +26,14 @@
 
         <!-- edit buttons -->
         <p-column [style]="{'width':'55px'}" styleClass="col-button">
-          <template pTemplate="header"></template>
-          <template let-obj="rowData" pTemplate="body">
+          <ng-template pTemplate="header"></ng-template>
+          <ng-template let-obj="rowData" pTemplate="body">
             <button (click)="edit(obj.id)" icon="fa-pencil-square-o" type="button" pButton></button>
-          </template>
+          </ng-template>
         </p-column>
 
         <!-- expanded row -->
-        <template let-obj pTemplate="rowexpansion">
+        <ng-template let-obj pTemplate="rowexpansion">
           <div class="ui-grid ui-grid-responsive ui-fluid">
             <div class="ui-grid-row">
               <div class="ui-grid-col-1" style="text-align:center">
@@ -85,7 +85,7 @@
               </div>
             </div>
           </div>
-        </template>
+        </ng-template>
       </p-dataTable>
 
       <p-dialog [(visible)]="isDialogVisible" header="Edit site schedule for {{currentObj.site?.name}}" [responsive]="true" showEffect="fade" [modal]="true">

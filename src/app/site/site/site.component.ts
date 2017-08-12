@@ -2,7 +2,7 @@ import {Component, OnInit, Input} from '@angular/core';
 
 import {SelectItem} from 'primeng/primeng';
 
-import {UtilService} from 'app/shared/util.service';
+import {UtilService} from '../../shared/util.service';
 import {Site} from './site.model';
 
 @Component({

@@ -2,6 +2,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
+//import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 //PrimeNg
 import {ButtonModule} from 'primeng/primeng';
@@ -51,6 +53,7 @@ import {DataBlockRowComponent} from './site/datablock/row/datablock-row.componen
     FormsModule,
     HttpModule,
     AppRoutingModule,
+    NoopAnimationsModule,
 
     SharedModule, //PrimeNg
     MenuModule, //PrimeNg

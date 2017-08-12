@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subscriber} from 'rxjs';
 
-import {ApiService} from 'app/shared/api.service';
+import {ApiService} from '../../shared/api.service';
 
 @Injectable()
 export class SiteDataBlockService {
