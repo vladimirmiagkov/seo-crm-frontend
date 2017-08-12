@@ -4,15 +4,16 @@ import {Observable} from 'rxjs';
 import 'rxjs/add/operator/map'
 
 import {tokenNotExpired} from 'angular2-jwt';
+import {environment} from '../../environments/environment';
 
 //import {JwtHelper} from 'angular2-jwt';
 
 @Injectable()
 export class AuthService {
   static CURRENT_USER_JWT_IDENTIFIER: string = 'currentUser';
-  //static CURRENT_USER_TOKEN_IDENTIFIER: string = 'id_token';
-  static CURRENT_USER_TOKEN_IDENTIFIER: string = 'token';
+  static CURRENT_USER_TOKEN_IDENTIFIER: string = 'token'; // 'id_token'
 
+  public apiPath: string = environment.backendRoot + '/api';
   public token: string;
 
   public constructor(private http: Http) {
@@ -24,7 +25,7 @@ export class AuthService {
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
     return this.http.post(
-      'http://rssp6.ru/app_dev.php/api/login_check',
+      this.apiPath + '/login_check',
       '_username=' + username + '&_password=' + password,
       {
         headers: headers
@@ -66,9 +67,9 @@ export class AuthService {
   }
 
   public isAuthenticated() {
-    // if (localStorage.getItem('id_token')) {
+    // if (localStorage.getItem(AuthService.CURRENT_USER_TOKEN_IDENTIFIER)) {
     //   let jwtHelper = new JwtHelper();
-    //   let token = localStorage.getItem('id_token');
+    //   let token = localStorage.getItem(AuthService.CURRENT_USER_TOKEN_IDENTIFIER);
     //
     //   //console.log(jwtHelper.decodeToken(token));
     //   //console.log(jwtHelper.getTokenExpirationDate(token));
