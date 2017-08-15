@@ -72,7 +72,7 @@ cp src/environments/environment.ts.dist src/environments/environment.ts
 In file `environment.ts` set right `backendRoot` like `backendRoot: 'http://localhost'`
 
 ```
-npm update
+npm install
 ```
 
 
