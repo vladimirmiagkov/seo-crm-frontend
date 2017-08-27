@@ -23,7 +23,7 @@ export class DataBlockComponent implements OnInit {
     isApplied: false, // Is Filter used for filtering dataBlock?
     defaults: {
       sortDirections: [{label: 'None', value: ''}, {label: 'ASC', value: 'ASC'}, {label: 'DESC', value: 'DESC'}],
-      searchEngines: [{label: 'Google', value: '0'}, {label: 'Yandex', value: '1'}],
+      searchEngines: [{label: 'Google', value: '1'}, {label: 'Yandex', value: '2'}],
     },
     filters: [], // List of all filters
   };
@@ -56,7 +56,7 @@ export class DataBlockComponent implements OnInit {
       this.pager.rows,
       this.viewDateFrom,
       this.viewDateTo,
-      JSON.stringify(this.filter)
+      JSON.stringify(this.filter.filters)
     ).subscribe(
       result => {
         console.log(result);
@@ -131,57 +131,57 @@ export class DataBlockComponent implements OnInit {
   private initFilter() {
     this.filter.filters = [
       {
-        name: 'pageSearchEngine',
+        name: 'page.searchEngines',
         title: 'Search engine (page)',
         type: 'multiSelect',
         valuesAvailable: this.filter.defaults.searchEngines,
-        values: [],
-        sortDirection: '',
+        values: [1],
+        sortDirection: 'DESC',
       },
       {
-        name: 'keywordSearchEngine',
+        name: 'keyword.searchEngines',
         title: 'Search engine (keyword)',
         type: 'multiSelect',
         valuesAvailable: this.filter.defaults.searchEngines,
-        values: [],
-        sortDirection: '',
-      },
-      {
-        name: 'pageName',
-        title: 'Name (page)',
-        type: 'text',
-        values: '',
+        values: [1, 2],
         sortDirection: 'ASC',
       },
       {
-        name: 'keywordName',
-        title: 'Name (keyword)',
+        name: 'page.name',
+        title: 'Name (page)',
         type: 'text',
-        values: '',
-        sortDirection: '',
+        values: 'page1.html',
+        sortDirection: 'ASC',
       },
       {
-        name: 'pageTags',
+        name: 'keyword.name',
+        title: 'Name (keyword)',
+        type: 'text',
+        values: 'нерж',
+        sortDirection: '',
+      },
+      /*{
+        name: 'page.tags',
         title: 'Tags (page)',
         type: 'multiSelect',
         valuesAvailable: [{label: 'plastic', value: '0'}, {label: 'fan', value: '1'}],
         values: [],
         sortDirection: '',
-      },
+      },*/
       {
-        name: 'keywordFromLocation',
+        name: 'keyword.fromPlace',
         title: 'From location (keyword)',
         type: 'multiSelect',
-        valuesAvailable: [{label: 'Denver', value: '0'}, {label: 'NY', value: '1'}],
-        values: [],
+        valuesAvailable: [{label: 'NN', value: '47'}, {label: 'NY', value: '2'}],
+        values: ['47'],
         sortDirection: '',
       },
       {
-        name: 'keywordReq',
+        name: 'keyword.searchEngineRequestLimit',
         title: 'Req (request) (keyword)',
         type: 'range',
-        valueMin: [],
-        valueMax: [],
+        valueMin: '100',
+        valueMax: '600',
         sortDirection: '',
       },
     ];
