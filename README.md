@@ -43,7 +43,7 @@ Other:
 
 ## Contributing
 
-This project is an open source, community-driven project.
+This is an open source, community-driven project.
 
 ## Authors
 
@@ -62,12 +62,12 @@ git clone https://github.com/vladimirmiagkov/seo-crm-frontend
 ```
 cp src/environments/environment.prod.ts.dist src/environments/environment.prod.ts
 ```
-In file `environment.prod.ts` set right `backendRoot` like `backendRoot: 'http://localhost'`
+In file `environment.prod.ts` set your `backendRoot` like `backendRoot: 'http://localhost'`
 
 ```
 cp src/environments/environment.ts.dist src/environments/environment.ts
 ```
-In file `environment.ts` set right `backendRoot` like `backendRoot: 'http://localhost'`
+In file `environment.ts` set your `backendRoot` like `backendRoot: 'http://localhost'`
 
 ```
 npm install
