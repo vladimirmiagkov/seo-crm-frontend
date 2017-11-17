@@ -9,8 +9,8 @@ import {SitescheduleComponent} from './site/siteschedule/siteschedule.component'
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: 'user', component: UserListComponent, canActivate: [AuthGuard]},
-  {path: 'siteschedule', component: SitescheduleComponent, canActivate: [AuthGuard]},
+  {path: 'users', component: UserListComponent, canActivate: [AuthGuard]},
+  {path: 'siteschedules', component: SitescheduleComponent, canActivate: [AuthGuard]},
 
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
   //{path: '**', redirectTo: '', pathMatch: 'full'} // defaul 'all not matched' redirect to home
